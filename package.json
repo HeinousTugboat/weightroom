@@ -1,0 +1,23 @@
+{
+  "name": "cumulus",
+  "version": "0.0.1",
+  "description": "My first forray into playing with Node.",
+  "main": "lib/index",
+  "types": "lib/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ts-node -- ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^8.0.13",
+    "nodemon": "^1.11.0",
+    "ts-node": "^3.2.0",
+    "typescript": "^2.4.1"
+  },
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
