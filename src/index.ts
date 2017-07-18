@@ -20,9 +20,9 @@ app.listen(58808, function() {
 
 console.log('Cumulus started...');
 
-db.one('SELECT $1 AS value', 123)
+db.one('SELECT * FROM workouts WHERE workout_id = 1', 123)
     .then(function(data:any) {
-        console.log('DATA:', data.value);
+        console.log('DATA:', data);
     })
     .catch(function(error:any) {
         console.log('ERROR:', error);
