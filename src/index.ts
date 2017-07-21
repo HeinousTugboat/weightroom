@@ -40,47 +40,82 @@ db.one('SELECT * FROM workouts WHERE workout_id = 1', 123)
 // console.log('\n\n\n');
 import * as Rx from 'rxjs/Rx';
 
-// logRx(Rx.Observable.of(1, 2, 3));
+// // logRx(Rx.Observable.of(1, 2, 3));
 
-// rl.on('line', (line: any)=>{
-//     log(`Beep: ${line}`);
-// })
-let subject = new Rx.ReplaySubject();
-// let lines = Rx.Observable.fromEvent(rl, 'line').subscribe((x: string) => subject.next(x));
-let lines = Rx.Observable.fromEvent(rl, 'line').subscribe(subject);
-// let source = lines;
-// let source = Rx.Observable.range(1, 5).scan((acc, x) => acc + x)
-// let source = Rx.Observable.create((observer: Rx.Observer<string>) => {
-//     observer.next(''+3);
-//     // var id = setInterval(() => {
-//         observer.next('beep')
-//     // }, 1000);
+// // rl.on('line', (line: any)=>{
+// //     log(`Beep: ${line}`);
+// // })
+// let subject$ = new Rx.ReplaySubject();
+// // let lines = Rx.Observable.fromEvent(rl, 'line').subscribe((x: string) => subject.next(x));
+// let line$ = Rx.Observable.fromEvent(rl, 'line').subscribe(subject$);
+// // let source = lines;
+// // let source = Rx.Observable.range(1, 5).scan((acc, x) => acc + x)
+// // let source = Rx.Observable.create((observer: Rx.Observer<string>) => {
+// //     observer.next(''+3);
+// //     // var id = setInterval(() => {
+// //         observer.next('beep')
+// //     // }, 1000);
+// // });
+// let source$ = subject$;
+
+// let subscription = source$.subscribe((x: any) => logRx('sub '+x),
+//                (err:any) => log('Error!', err),
+//                () => logRx('Source complete..'));
+
+// let sub2 = source$.subscribe(x => logRx('sub2 ' + x));
+
+// subject$.next('Test One');
+// subject$.next('Test Two');
+
+// let sub3 = source$.subscribe(x => {
+//     if (x === 'test') {
+//         subject$.next('Foofoo');
+//     }
+//     logRx('subLate ' + x)
 // });
-let source = subject;
+// subject$.next('Test Three');
+// // subject.complete();
 
-let subscription = source.subscribe((x: any) => logRx('sub '+x),
-               (err:any) => log('Error!', err),
-               () => logRx('Source complete..'));
+// let counter = source$.scan((num: number) => (++num), 0).subscribe(x=>logRx(x))
 
-let sub2 = source.subscribe(x => logRx('sub2 ' + x));
+// let ticker$ = Rx.Observable.interval(1000)
+//     .bufferTime(3000)
+//     .subscribe((x)=>{
+//     // subject.next('tick!tock?');
+//         logRx('tick!tock? ', x);
+//     })
 
-subject.next('Test One');
-subject.next('Test Two');
+// http://rudiyardley.com/redux-single-line-of-code-rxjs/
 
-let sub3 = source.subscribe(x => {
-    if (x === 'test') {
-        subject.next('Foofoo');
+const reducer = (state: {}, action: any): any => {
+    switch (action.type) {
+        case 'NAME_CHANGED':
+            return Object.assign({}, state, { name: action.payload });
+            // return { ...state, name: action.payload } // FIX: Node.JS doesn't support object literal spread...
+        case 'AGE_CHANGED':
+            return Object.assign({}, state, { age: action.payload });
+        default:
+            return state;
     }
-    logRx('subLate ' + x)
-});
-subject.next('Test Three');
-// subject.complete();
+};
+const renderer = (state: {}): void => { /*logRx(state)*/ };
 
-let counter = source.scan((num: number) => (++num), 0).subscribe(x=>logRx(x))
+const action$ = new Rx.BehaviorSubject({});
+const store$ = action$.scan(reducer);
+store$.subscribe((state) => renderer(state));
+const history$ = store$.scan((history, state) => (history.push(state), history), [])
+    .subscribe((history)=>logRx(history))
 
-let ticker = Rx.Observable.interval(1000)
-    .bufferTime(3000)
-    .subscribe((x)=>{
-    // subject.next('tick!tock?');
-        logRx('tick!tock? ', x);
-    })
+const actionDispatcher = (func: Function) => (...args: any[]) => action$.next(func(...args));
+
+const changeName = actionDispatcher((payload: any) => ({
+    type: 'NAME_CHANGED', payload
+}));
+const changeAge = actionDispatcher((payload: number) => ({
+    type: 'AGE_CHANGED', payload
+}));
+
+changeName('Foo');
+changeName('Tom Willikers');
+changeAge(48);
+changeAge(23);
