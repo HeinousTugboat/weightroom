@@ -20,12 +20,15 @@ export class ConsoleWrestlers {
             const words = input.split(/\s/);
             const cmd = words[0].toUpperCase();
             if (cmd === 'ADD') {
+                log('Adding '+words.slice(1).join(' '));
                 vModel.addWrestler(words.slice(1).join(' '));
             } else if (cmd === 'REFRESH' || cmd === 'UPDATE') {
+                log('Refreshing Display');
                 vModel.refresh();
             } else if (cmd === 'DELETE') {
                 const num = Number.parseInt(words[1]);
                 if (num !== undefined) {
+                    log(`Deleting id#${num}`);
                     vModel.deleteById(num);
                 }
             }
