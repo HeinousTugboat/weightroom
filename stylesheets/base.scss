@@ -1,0 +1,75 @@
+/** BEGIN base.scss -- Heinous Industries */
+
+@import "vendor/reset";
+
+// Breakpoints
+$break-med: 55em;
+$break-sml: 47em;
+
+// Basic monochromatics
+$white: white;
+$black: black;
+$black_30: rgba($black, 0.3);
+$black_50: rgba($black, 0.5);
+
+// Grays
+$mineShaft: #333; // $nightRider
+$fucousGray: #555; // $emperor, $mortar
+$gray: #777; // $tapa, $grey, $boulder
+$gray_2: #888; // $suvaGray
+$silver: #BBB; // $pinkSwan
+$veryLightGray: #CCC; // $celeste, $silver
+$gainsboro: #DDD; // $alto
+$whisper: #EEE; // $gallery, $whiteSmoke
+$snow: #FAFAFA; // $alabaster
+// chir.ag/projects/name-that-color/
+// ntc.names.forEach(x=>{if(x[6] < 2){console.log(x)}})
+// Array [ "000000", "Black", 0, 0, 0, 0, 0, 0 ]
+// Array [ "0B0B0B", "Cod Gray", 11, 11, 11, 0, 0, 11 ]
+// Array [ "323232", "Mine Shaft", 50, 50, 50, 0, 0, 50 ]
+// Array [ "646463", "Storm Dust", 100, 100, 99, 42, 1, 99 ]
+// Array [ "6D6C6C", "Dove Gray", 109, 108, 108, 0, 1, 108 ]
+// Array [ "7A7A7A", "Boulder", 122, 122, 122, 0, 0, 122 ]
+// Array [ "808080", "Gray", 128, 128, 128, 0, 0, 128 ]
+// Array [ "ACACAC", "Silver Chalice", 172, 172, 172, 0, 0, 172 ]
+// Array [ "C0C0C0", "Silver", 192, 192, 192, 0, 0, 192 ]
+// Array [ "DBDBDB", "Alto", 219, 219, 219, 0, 0, 219 ]
+// Array [ "E5E5E5", "Mercury", 229, 229, 229, 0, 0, 229 ]
+// Array [ "EFEFEF", "Gallery", 239, 239, 239, 0, 0, 239 ]
+// Array [ "F1F1F1", "Seashell", 241, 241, 241, 0, 0, 241 ]
+// Array [ "F2F2F2", "Concrete", 242, 242, 242, 0, 0, 242 ]
+// Array [ "F4F4F4", "Wild Sand", 244, 244, 244, 0, 0, 244 ]
+// Array [ "FAFAFA", "Alabaster", 250, 250, 250, 0, 0, 250 ]
+// Array [ "FFFFFF", "White", 255, 255, 255, 0, 0, 255 ]
+// Reds
+$darkBurgundy: hsl(6, 100%, 25%);
+$darkBurgundy_50: rgba($darkBurgundy, 0.5);
+$diesel: hsl(6, 100%, 5%);
+
+// Paper color
+$oldLace: hsl(40, 100%, 94%); // $sazerac
+// Log colors
+$red: #F77; // $froly
+$blue: #AAF; // $perano
+$green: #7E7; // $pastelGreen
+$cyan: #7EE; // $spray
+$magenta: #E7E; // $lavenderMagenta
+$yellow: #FF7; // $parisDaisy
+// Component variables
+// Borders
+// Backgrounds
+// Foregrounds
+// Selection
+$selectionHighlight: $black_30;
+
+// Z-indices!
+$z-base: 100;
+$z-modal: $z-base+2;
+$z-float: $z-base+1;
+// $z-base
+$z-lower: $z-base - 1;
+$z-under: $z-base - 2;
+
+// End Variables
+
+/** Base Styles for entire site */

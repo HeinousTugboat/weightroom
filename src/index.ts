@@ -2,6 +2,7 @@
 // http://mherman.org/blog/2016/11/05/developing-a-restful-api-with-node-and-typescript/#.WWvhKIjyuUk
 // http://expressjs.com/en/starter/generator.html
 import express = require('express');
+import sass = require('node-sass-middleware');
 import weightroom from './weightroom';
 const debug = require('debug');
 const readline = require('readline');
@@ -20,17 +21,20 @@ const pgp = require('pg-promise')(initOptions);
 const db = pgp('postgres://cumulus:nineball@localhost:60888/cumulonimbus');
 
 app.set('view engine', 'pug');
-// app.get('/', function(req, res) {
-//     res.send('Hello world!');
-//     log(req);
-// })
+app.use(sass({
+    src: 'stylesheets',
+    response: true,
+    indentedSyntax: false
+}))
 app.get('/', function(req, res) {
     res.render('index', {title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.'});
     // log(req);
 })
 
 app.use('/wr', weightroom);
-// app.get('/wr/wrestler', weightroom.wrestler);
+app.get('/sink', function(req, res) {
+    res.render('sink', { title: '[HInd] Kitchen Sink' });
+})
 
 app.listen(58808, function() {
     log('Cumulus listening on port 58808!');

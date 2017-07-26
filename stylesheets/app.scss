@@ -1,0 +1,60 @@
+/** BEGIN app.scss -- Generic CSS */
+
+@import "base";
+
+header,
+footer {
+    display: flex;
+    flex: 0 0 auto;
+    background: rgba(0, 0, 0, 0.025);
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 1em;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    font-family: "Calibri", sans-serif;
+    align-content: stretch;
+    flex: 1 1 auto;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex: 1 1 auto;
+    height: auto;
+    align-items: flex-start;
+    >div {
+        margin: 0.5em;
+        border: 1px solid hsl(30, 100%, 25%);
+        padding: 0.5em;
+        width: auto;
+        max-width: 20vw;
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+@import "temp";
+
+
+
+
+/** END app.scss */
