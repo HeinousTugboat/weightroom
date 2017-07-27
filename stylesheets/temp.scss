@@ -28,6 +28,19 @@ button {
     margin: 0.2em;
     box-sizing: border-box;
     padding: 2px 6px;
+    &.minimize,
+    &.options {
+        flex: 0 0 auto;
+        border: 1px solid #000;
+        background: #FAFAFA;
+        padding: 0; // margin: 3px 4px 3px 0px;
+        color: #333;
+        height: 24px;
+        width: 24px;
+        &:hover {
+            background: #FF9900;
+        }
+    }
 }
 
 select {
@@ -85,29 +98,42 @@ li {
     margin: 0;
     border: 1px solid transparent;
     margin: 1px;
+}
 
-    &.exercise {
-        background: #555;
-        color: #FAFAFA;
-        padding: 0 3px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+.exercise header {
+    background: #555;
+    color: #FAFAFA;
+    padding: 2px;
+    margin: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    >* {
+        margin: 0; // margin: 0px 4px;
+        box-sizing: border-box;
     }
-
-    &.warmup {
-        color: #AAA;
-
-        &:hover {
-            background: #FAFAFA;
-            border-color: rgba(0, 0, 0, 0.1);
-        }
+    >h1,
+    h2,
+    h3,
+    h4 {
+        flex: 1 1 auto;
+        margin: 0 0.5em;
     }
+}
 
-    &.work {
-        font-weight: bold;
+.warmup {
+    color: #AAA;
 
-        &:hover {
-            background: #FAFAFA;
-            border-color: #333;
-        }
+    &:hover {
+        background: #FAFAFA;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.work {
+    font-weight: bold;
+
+    &:hover {
+        background: #FAFAFA;
+        border-color: #333;
     }
 }

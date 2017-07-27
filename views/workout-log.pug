@@ -1,0 +1,31 @@
+html
+  head
+    title= title
+    link(rel='stylesheet' href='/app.css')
+  body
+    header
+      h1 The Weightroom
+      div.login
+        Login
+        input#username(type="text")
+        input#password(type="password")
+        button.login Login
+    main
+      div.workout
+        header
+          h2 SL5x5-A
+          date 11/12/2014
+        p.notes Notes about workout..
+        date 1h30m
+        each exercise in workout
+          div.exercise
+            header
+              button.minimize +
+              h3= exercise.name
+              button.options O
+              button.minimize +
+            ul
+              each set in exercise.sets
+                li(class=set.type)= `${set.reps}x ${set.weight} lbs`
+    footer
+      | A place for your feet
