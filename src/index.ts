@@ -4,21 +4,15 @@
 import express = require('express');
 import sass = require('node-sass-middleware');
 import weightroom from './weightroom';
+import * as Rx from 'rxjs/Rx';
+
+import { db } from './db';
+
 const debug = require('debug');
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin//,
-    // output: process.stdout
-});
 const log = debug('cumulus:log');
 const logDB = debug('cumulus:db');
 const logRx = debug('cumulus:Rx');
 const app = express();
-const initOptions = {
-    // 'postgres://cumulus:nineball@localhost:5432/cumulonimbus'
-}
-const pgp = require('pg-promise')(initOptions);
-const db = pgp('postgres://cumulus:nineball@localhost:60888/cumulonimbus');
 
 app.set('view engine', 'pug');
 app.use(sass({
@@ -26,30 +20,41 @@ app.use(sass({
     response: true,
     indentedSyntax: false
 }))
-app.get('/', function(req, res) {
-    res.render('index', {title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.'});
-    // log(req);
+
+app.get('/', (req, res) => {
+    res.render('index', { title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.' });
 })
 
 app.use('/wr', weightroom);
-app.get('/sink', function(req, res) {
-    res.render('sink', { title: '[HInd] Kitchen Sink' });
+
+app.get('/sink', (req, res) => res.render('sink', { title: '[HInd] Kitchen Sink' }) )
+
+app.get('/db/exercise_sets', (req, res) => {
+    db.many('SELECT * FROM exercise_sets')
+        .then((data: any) => res.send(data))
+        .catch((error: Error) => res.send(error));
+})
+app.get('/db/exercises', (req, res) => {
+    db.many('SELECT * FROM exercises')
+        .then((data: any) => res.send(data))
+        .catch((error: Error) => res.send(error));
+})
+app.get('/db/routines', (req, res) => {
+    db.many('SELECT * FROM routines')
+        .then((data: any) => res.send(data))
+        .catch((error: Error) => res.send(error));
+})
+app.get('/db/workouts', (req, res) => {
+    db.many('SELECT * FROM workouts')
+        .then((data: any) => res.send(data))
+        .catch((error: Error) => res.send(error));
+})
+app.get('/db/wrestlers', (req, res) => {
+    db.many('SELECT * FROM wrestlers')
+        .then((data: any) => res.send(data))
+        .catch((error: Error) => res.send(error));
 })
 
-app.listen(58808, function() {
-    log('Cumulus listening on port 58808!');
-})
+app.listen(58808, () => log('Cumulus listening on port 58808!'))
 
 log('Cumulus started...');
-
-// db.one('SELECT * FROM workouts WHERE workout_id = 1', 123)
-//     .then(function(data:any) {
-//         logDB('DATA:', data);
-//     })
-//     .catch(function(error:any) {
-//         logDB('ERROR:', error);
-//     })
-
-// console.log('\n\n\n');
-import * as Rx from 'rxjs/Rx';
-import './weightroom';
