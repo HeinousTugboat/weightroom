@@ -36,16 +36,14 @@ router.route('/wrestler/add')
         res.redirect('../wrestler');
     })
     .post((req, res, next) => {
-        log(req);
-        next();
+        log(req.body);
+        res.send();
     })
     .put((req, res, next) => {
         log(req);
-        next();
     })
     .patch((req, res, next) => {
         log(req);
-        next();
     })
 
 interface ExerciseSet {

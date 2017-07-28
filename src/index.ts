@@ -5,6 +5,7 @@ import express = require('express');
 import sass = require('node-sass-middleware');
 import weightroom from './weightroom';
 import * as Rx from 'rxjs/Rx';
+import * as bodyParser from 'body-parser';
 
 import { db } from './db';
 
@@ -14,6 +15,7 @@ const logDB = debug('cumulus:db');
 const logRx = debug('cumulus:Rx');
 const app = express();
 
+app.use(bodyParser.json());
 app.set('view engine', 'pug');
 app.use(sass({
     src: 'stylesheets',
