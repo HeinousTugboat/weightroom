@@ -57,6 +57,9 @@ app.get('/db/wrestlers', (req, res) => {
         .catch((error: Error) => res.send(error));
 })
 
+app.use(express.static('public'));
+app.use('/js', express.static('lib/public'));
+
 app.listen(58808, () => log('Cumulus listening on port 58808!'))
 
 log('Cumulus started...');

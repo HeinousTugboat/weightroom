@@ -25,7 +25,7 @@ export class IndexView {
     }
 }
 
-interface View {
+export interface View {
     title: string;
     header: string;
     content: string;

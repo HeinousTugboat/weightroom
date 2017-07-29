@@ -1,7 +1,8 @@
 html
     head
         title= title
-        link(rel='stylesheet' href='/base.css')
+        link(rel='stylesheet' href='/app.css')
+    // TODO: Srsly, get templates together...
     body
         h1= header
         p Workouts
@@ -15,3 +16,9 @@ html
                     td= wrestler.name
                     td= wrestler.id
                     td= wrestler.workouts.length
+        //- form(action='/wr/wrestler/add' method='post')
+        form(id='wrestler-form')
+            input#name(name='name' type='text' placeholder='Name')
+            input#age(name='age' type='text' placeholder='Age')
+            button#submit(name='submit') Submit
+        script(src='/js/app.js')

@@ -31,19 +31,34 @@ router.get('/wrestler', (req, res, next) => {
     res.render('wrestler', { title: 'Wrestler', header: 'Wrestler List', wrestlers: vm.getState().wrestlers })
 })
 router.route('/wrestler/add')
-    .get((req, res, next) => {
-        vm.addWrestler('Unidentified Dude-' + Math.ceil(Math.random() * 100));
-        res.redirect('../wrestler');
-    })
-    .post((req, res, next) => {
+    // .get((req, res, next) => {
+    //     vm.addWrestler('Unidentified Dude-' + Math.ceil(Math.random() * 100));
+    //     res.redirect('../wrestler');
+    // })
+
+/** This seems to work for now */
+// fetch("http://localhost:58808/wr/wrestler/add", {
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     method: "POST",
+//     body: JSON.stringify({ a: 'foo', b: 'bar' })
+// })
+// .then((res) => console.log(res))
+// .catch((res) => console.log(res))
+
+    .post((req, res, next) => { // TODO: Figure out the Auth thing. Check into Passport and Helmet.
         log(req.body);
+        req.body.name && vm.addWrestler(req.body.name);
         res.send();
     })
     .put((req, res, next) => {
-        log(req);
+        log(req.body);
+        res.send();
     })
     .patch((req, res, next) => {
-        log(req);
+        log(req.body);
+        res.send();
     })
 
 interface ExerciseSet {

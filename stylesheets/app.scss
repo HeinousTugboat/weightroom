@@ -18,12 +18,16 @@ footer {
 body {
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 1em;
     margin: 0;
     font-family: "Calibri", sans-serif;
     align-content: stretch;
     flex: 1 1 auto;
     min-height: 100vh;
+}
+
+div {
+    margin: 1em;
 }
 
 h1,
@@ -53,7 +57,19 @@ ul {
     padding: 0;
 }
 
+nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+}
+
 @import "temp";
+
+
+
+
 
 
 
