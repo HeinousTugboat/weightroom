@@ -31,10 +31,10 @@ router.get('/wrestler', (req, res, next) => {
     res.render('wrestler', { title: 'Wrestler', header: 'Wrestler List', wrestlers: vm.getState().wrestlers })
 })
 router.route('/wrestler/add')
-    // .get((req, res, next) => {
+    .get((req, res, next) => {
     //     vm.addWrestler('Unidentified Dude-' + Math.ceil(Math.random() * 100));
-    //     res.redirect('../wrestler');
-    // })
+        res.redirect('../wrestler');
+    })
 
 /** This seems to work for now */
 // fetch("http://localhost:58808/wr/wrestler/add", {
