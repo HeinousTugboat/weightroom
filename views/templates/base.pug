@@ -1,0 +1,33 @@
+- let title = 'The Weightroom'
+- let pubdate = new Date(Date.now());
+//- - let header = '..Weightroom..'
+
+doctype html
+html.no-js(lang='en')
+    head
+        meta(charset='utf-8')
+        // meta(http-equiv='x-ua-compatible' content='ie=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet' href='/app.css')
+        link(rel='stylesheet' href='//brick.a.ssl.fastly.net/Bitter:400/PT+Sans:400')
+        // link(rel='stylesheet' href='//brick.a.ssl.fastly.net/Raleway:400')
+        title= title || 'Weightroom'
+    body.l-flex-page
+        header
+            h1= header || '..Weightroom..'
+            div.login
+                Login
+                input#username(type="text")
+                input#password(type="password")
+                button.login Login
+        include nav
+        main
+            block content
+
+        footer
+            block footer
+                - let now = new Date(Date.now());
+                p.small Generated at: #[time(datetime=now)= now.toLocaleString()]
+
+
+        script(src='/js/app.js')

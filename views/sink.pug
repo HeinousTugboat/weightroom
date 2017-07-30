@@ -1,115 +1,104 @@
-html
-  head
-    title= title
-    link(rel='stylesheet' href='/app.css')
-  body
-    header
-      h1 The Weightroom
-      div.login
-        Login
-        input#username(type="text")
-        input#password(type="password")
-        button.login Login
-    main
-      div.signup
-        h2 Sign up!
-        label(for="username") Username
-        input#username(type="text")
-        label(for="password") Password
-        input#password(type="password")
-        label(for="email") Email
-        input#email(type="email")
-        button.signup Signup
-      div.example
-        h2 Example
-        | Here we show an example! What it looks like! Screeeenshoooooots.
-      div.calendar
-        h2 Calendar/History
-        | Of course we need one of these..
-        div.month
-          h3 August 2017
-          div.week.header-row
-            div.sunday Su
-            div.monday Mo
-            div.tuesday Tu
-            div.wednesday We
-            div.thursday Th
-            div.friday Fr
-            div.saturday Sa
-          div.week
-            div.sunday
-            div.monday
-            div.tuesday 1
-            div.wednesday 2
-            div.thursday 3
-            div.friday 4
-            div.saturday 5
-            div.sunday 6
-            div.monday 7
-            div.tuesday 8
-            div.wednesday 9
-            div.thursday 10
-            div.friday 11
-            div.saturday 12
-            div.sunday 13
-            div.monday 14
-            div.tuesday 15
-            div.wednesday 16
-            div.thursday 17
-            div.friday 18
-            div.saturday 19
-            div.sunday 20
-            div.monday 21
-            div.tuesday 22
-            div.wednesday 23
-            div.thursday 24
-            div.friday 25
-            div.saturday 26
-            div.sunday 27
-            div.monday 28
-            div.tuesday 29
-            div.wednesday 30
-      div.workout
-        header
-          h2 SL5x5-A
-          date 11/12/2014
-        p.notes Notes about workout..
-        date 1h30m
-        ul
-          li Squat
-          ul
-            li.warmup 5x 45 lbs
-            li.warmup 5x 45 lbs
-            li.warmup 5x 85 lbs
-            li.warmup 3x 125 lbs
-            li.warmup 2x 170 lbs
-            li.work 5x 215 lbs
-            li.work 5x 215 lbs
-            li.work 10x 215 lbs
-          li Bench Press
-          ul
-            li.warmup 5x 45 lbs
-            li.warmup 5x 45 lbs
-            li.warmup 5x 75 lbs
-            li.warmup 3x 105 lbs
-            li.warmup 2x 135 lbs
-            li.work 5x 150 lbs
-            li.work 5x 150 lbs
-            li.work 10x 150 lbs
-          li Pendlay Row
-          ul
-            li.warmup 5x 45 lbs
-            li.warmup 5x 45 lbs
-            li.warmup 5x 75 lbs
-            li.warmup 3x 105 lbs
-            li.warmup 2x 135 lbs
-            li.work 5x 150 lbs
-            li.work 5x 150 lbs
-            li.work 8x 150 lbs
-      div.other
-        h2 Other Stuff
-        | Other stuff goes here..
+extends templates/base.pug
 
-    footer
-      | A place for your feet
-    script(src='js/app.js')
+block content
+  div.signup
+    h2 Sign up!
+    label(for="username") Username
+    input#username(type="text")
+    label(for="password") Password
+    input#password(type="password")
+    label(for="email") Email
+    input#email(type="email")
+    button.signup Signup
+  div.example
+    h2 Example
+    | Here we show an example! What it looks like! Screeeenshoooooots.
+  div.calendar
+    h2 Calendar/History
+    | Of course we need one of these..
+    div.month
+      h3 August 2017
+      div.week.header-row
+        div.sunday Su
+        div.monday Mo
+        div.tuesday Tu
+        div.wednesday We
+        div.thursday Th
+        div.friday Fr
+        div.saturday Sa
+      div.week
+        div.sunday
+        div.monday
+        div.tuesday 1
+        div.wednesday 2
+        div.thursday 3
+        div.friday 4
+        div.saturday 5
+        div.sunday 6
+        div.monday 7
+        div.tuesday 8
+        div.wednesday 9
+        div.thursday 10
+        div.friday 11
+        div.saturday 12
+        div.sunday 13
+        div.monday 14
+        div.tuesday 15
+        div.wednesday 16
+        div.thursday 17
+        div.friday 18
+        div.saturday 19
+        div.sunday 20
+        div.monday 21
+        div.tuesday 22
+        div.wednesday 23
+        div.thursday 24
+        div.friday 25
+        div.saturday 26
+        div.sunday 27
+        div.monday 28
+        div.tuesday 29
+        div.wednesday 30
+  div.workout
+    header
+      h2 SL5x5-A
+      date 11/12/2014
+    p.notes Notes about workout..
+    date 1h30m
+    ul
+      li Squat
+      ul
+        li.warmup 5x 45 lbs
+        li.warmup 5x 45 lbs
+        li.warmup 5x 85 lbs
+        li.warmup 3x 125 lbs
+        li.warmup 2x 170 lbs
+        li.work 5x 215 lbs
+        li.work 5x 215 lbs
+        li.work 10x 215 lbs
+      li Bench Press
+      ul
+        li.warmup 5x 45 lbs
+        li.warmup 5x 45 lbs
+        li.warmup 5x 75 lbs
+        li.warmup 3x 105 lbs
+        li.warmup 2x 135 lbs
+        li.work 5x 150 lbs
+        li.work 5x 150 lbs
+        li.work 10x 150 lbs
+      li Pendlay Row
+      ul
+        li.warmup 5x 45 lbs
+        li.warmup 5x 45 lbs
+        li.warmup 5x 75 lbs
+        li.warmup 3x 105 lbs
+        li.warmup 2x 135 lbs
+        li.work 5x 150 lbs
+        li.work 5x 150 lbs
+        li.work 8x 150 lbs
+  div.other
+    h2 Other Stuff
+    | Other stuff goes here..
+
+block footer
+  | A place for your feet

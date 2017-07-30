@@ -1,29 +1,9 @@
 /** BEGIN app.scss -- Generic CSS */
 
 @import "base";
-
-header,
-footer {
-    display: flex;
-    flex: 0 0 auto;
-    background: rgba(0, 0, 0, 0.025);
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 0;
-    padding: 1em;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    margin: 0;
-    font-family: "Calibri", sans-serif;
-    align-content: stretch;
-    flex: 1 1 auto;
-    min-height: 100vh;
+html {
+    font-family: "PT Sans", sans-serif;
+    /* font-family: "Raleway", sans-serif; */
 }
 
 div {
@@ -35,37 +15,51 @@ h2,
 h3,
 h4 {
     margin: 0;
+    font-family: "Bitter", serif;
 }
 
-main {
-    display: flex;
-    flex: 1 1 auto;
-    height: auto;
-    align-items: flex-start;
-    >div {
-        margin: 0.5em;
-        border: 1px solid hsl(30, 100%, 25%);
-        padding: 0.5em;
-        width: auto;
-        min-width: 20em;
-        max-width: 40vw;
-    }
+
+
+/**
+ * Using this scale, for no reason other than it's easy and I like it:
+ * http://typecast.com/blog/a-more-modern-scale-for-web-typography
+ */
+
+h1 {
+    font-size: 3em;
 }
+
+h2 {
+    font-size: 2.25em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4 {
+    font-size: 1.125em;
+}
+
 
 ul {
     list-style: none;
     padding: 0;
 }
 
-nav {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 1em;
-    right: 1em;
-}
-
 @import "temp";
+
+@import "layouts/flex-page";
+
+
+
+
+
+
+
+
+
+
 
 
 
