@@ -1,0 +1,109 @@
+# https://app.swaggerhub.com/help/tutorials/writing-swagger-definitions
+# ---------- Header ------------------------------------------------------------
+swagger: '2.0'
+info:
+  description: Weightroom Backend!
+  version: 0.0.1
+  title: Weightroom
+  contact:
+    email: admin@heinousindustries.com
+schemes:
+- https
+host: heinous.industries
+basePath: /api
+securityDefinitions:
+  UserSecurity:
+    type: basic
+security:
+  - UserSecurity: []
+# ---------- Paths -------------------------------------------------------------
+paths:
+  /wrestlers:
+    get:
+      description: Returns a list of wrestlers.
+      parameters:
+        - name: offset
+          in: query
+          type: integer
+          description: Specifies page number to be displayed.
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: array
+            items:
+                $ref: '#/definitions/Wrestler'
+        400:
+          description: Invalid request
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    post:
+      description: Lets a user add a new wrestler
+      parameters:
+        - name: wrestler
+          in: body
+          description: creates a new wrestler in the database
+          schema:
+            $ref: '#/definitions/Wrestler'
+      responses:
+        200:
+          description: Successfully added new wrestler
+        400:
+          description: Invalid request
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  /wrestlers/{username}:
+    get:
+      description: Get wrestler information from username
+      parameters:
+        - name: username
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successfully returned wrestler information
+          schema:
+            type: object
+            properties:
+              wrestler_name:
+                type: string
+              wrestler_id:
+                type: integer
+        400:
+          description: Invalid request
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+definitions:
+  Wrestler:
+    type: object
+    required:
+      - username
+    properties:
+      name:
+        type: string
+      wrestler_id:
+        type: integer
+      username:
+        type: string
+      age:
+        type: integer
+      units:
+        type: string
+      workouts:
+        type: array
+        items:
+          $ref: '#/definitions/Workout'
+  Workout:
+    type: object
+
