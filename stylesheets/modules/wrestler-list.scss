@@ -1,0 +1,23 @@
+/** BEGIN wrestler-list.scss - for /wr/wrestler */
+
+.wrestler-list {
+    table {
+        border-collapse: separate;
+        border-spacing: 0.2em;
+        table-layout: fixed;
+    }
+
+    tr {
+        background: transparent;
+        border: 1px solid transparent;
+        &:hover {
+            background: #EEE;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+    }
+    td {
+        padding: 0.2em 0.5em;
+        border: 1px solid transparent;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}

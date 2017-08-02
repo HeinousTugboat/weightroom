@@ -27,13 +27,13 @@ const indexView = new IndexView(vm);
 router.get('/', (req, res, next) => {
     res.render('index', indexView.render());
 })
-router.get('/wrestler', (req, res, next) => {
-    res.render('wrestler', { title: 'Wrestler', header: 'Wrestler List', wrestlers: vm.getState().wrestlers })
+router.get('/wrestlers', (req, res, next) => {
+    res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: vm.getState().wrestlers })
 })
-router.route('/wrestler/add')
+router.route('/wrestlers/add')
     .get((req, res, next) => {
     //     vm.addWrestler('Unidentified Dude-' + Math.ceil(Math.random() * 100));
-        res.redirect('../wrestler');
+        res.redirect('../wrestlers');
     })
 
 /** This seems to work for now */
@@ -60,6 +60,10 @@ router.route('/wrestler/add')
         log(req.body);
         res.send();
     })
+router.get('/wrestlers/:wrestler_id', (req, res, next) => {
+    res.render('wrestler-profile', { id: parseInt(req.params.wrestler_id), wrestler: vm.getWrestler(parseInt(req.params.wrestler_id))})
+    // res.send([req.params, ...vm.getWrestler(parseInt(req.params.wrestler_id))]);
+})
 
 interface ExerciseSet {
     exercise: string,

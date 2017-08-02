@@ -1,7 +1,7 @@
 console.log('Client-side JS loaded!');
 
 function submitJSON(data: object) {
-    fetch('/wr/wrestler/add', {
+    fetch('/wr/wrestlers/add', {
         headers: {
             'Content-Type': 'application/json'
         }, method: 'POST',

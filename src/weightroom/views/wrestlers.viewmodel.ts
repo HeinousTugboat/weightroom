@@ -36,6 +36,9 @@ export default class ViewModel {
     addWrestler(name: string): void {
         return this.dispatch$.next(new Actions.AddWrestler(new Wrestler(name)));
     }
+    getWrestler(id: number): Wrestler[] {
+        return this.currentState.wrestlers.filter(wrestler => (wrestler.id === id));
+    }
     deleteById(id: number): void {
         return this.dispatch$.next(new Actions.DeleteWrestlerById(id));
     }

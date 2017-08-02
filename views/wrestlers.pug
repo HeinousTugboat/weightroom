@@ -2,18 +2,22 @@
 extends templates/base.pug
 
 block content
-    div
+    div.wrestler-list
         p Workouts
         table
             tr
+                th View
                 th Name
                 th ID #
                 th # Workouts
+                th Delete
             each wrestler in wrestlers
                 tr
-                    td= wrestler.name
-                    td= wrestler.id
-                    td= wrestler.workouts.length
+                    td.view: a(href='./wrestlers/'+wrestler.id) View
+                    td.name= wrestler.name
+                    td.id= wrestler.id
+                    td.workouts= wrestler.workouts.length
+                    td.delete: a(href='#') X
         //- form(action='/wr/wrestler/add' method='post')
     div
         form(id='wrestler-form')
