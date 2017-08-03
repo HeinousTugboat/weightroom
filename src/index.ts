@@ -8,6 +8,7 @@ import * as Rx from 'rxjs/Rx';
 import * as bodyParser from 'body-parser';
 
 import { db } from './db';
+import * as api from './db';
 
 const debug = require('debug');
 const log = debug('cumulus:log');
@@ -26,35 +27,37 @@ app.use(sass({
 app.get('/', (req, res) => {
     res.render('index', { title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.' });
 })
-
-app.use('/wr', weightroom);
-
 app.get('/sink', (req, res) => res.render('sink', { title: '[HInd] Kitchen Sink' }) )
+app.use('/wr', weightroom);
+app.get('/db/exercises', api.getExercises);
+app.get('/db/exercises/:exercise_id', api.getExercisesById);
+app.get('/db/routines', api.getRoutines);
+app.get('/db/routines/:routine_id', api.getRoutinesById);
+app.get('/db/wrestlers', api.getWrestlers);
+app.get('/db/wrestlers/:wrestler_id', api.getWrestlersById);
+app.get('/db/wrestlers/:wrestler_id/full', api.getWrestlersByIdFull);
+app.get('/db/wrestlers/:wrestler_id/workouts', api.getWorkoutsByWrestler);
+app.get('/db/wrestlers/:wrestler_id/workouts/:workout_id', api.getWorkoutsById);
 
 app.get('/db/exercise_sets', (req, res) => {
     db.many('SELECT * FROM exercise_sets')
         .then((data: any) => res.send(data))
         .catch((error: Error) => res.send(error));
 })
-app.get('/db/exercises', (req, res) => {
-    db.many('SELECT * FROM exercises')
-        .then((data: any) => res.send(data))
-        .catch((error: Error) => res.send(error));
-})
-app.get('/db/routines', (req, res) => {
-    db.many('SELECT * FROM routines')
-        .then((data: any) => res.send(data))
-        .catch((error: Error) => res.send(error));
+app.get('/db/exercise_sets/:exercise_set_id', (req, res) => {
+    db.one('SELECT * FROM exercise_sets WHERE exercise_set_id = ${exercise_set_id}', req.params)
+        .then(data => res.send(data))
+        .catch(error => res.send(error));
 })
 app.get('/db/workouts', (req, res) => {
     db.many('SELECT * FROM workouts')
         .then((data: any) => res.send(data))
         .catch((error: Error) => res.send(error));
 })
-app.get('/db/wrestlers', (req, res) => {
-    db.many('SELECT * FROM wrestlers')
-        .then((data: any) => res.send(data))
-        .catch((error: Error) => res.send(error));
+app.get('/db/workouts/:workout_id', (req, res) => {
+    db.one('SELECT * FROM workouts WHERE workout_id = ${workout_id}', req.params)
+        .then(data => res.send(data))
+        .catch(error => res.send(error));
 })
 
 app.use(express.static('public'));
