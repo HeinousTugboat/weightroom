@@ -9,7 +9,7 @@ import ViewModel from './views/wrestlers.viewmodel';
 import { ConsoleWrestlers as View } from './views/console-wrestlers';
 import { IndexView } from './views/index';
 import { Model } from './model';
-import { db } from '../db';
+import { db } from '../api';
 
 const debug = require('debug');
 const log = debug('cumulus:weightroom');

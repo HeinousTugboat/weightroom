@@ -7,14 +7,21 @@ import weightroom from './weightroom';
 import * as Rx from 'rxjs/Rx';
 import * as bodyParser from 'body-parser';
 
-import { db } from './db';
-import * as api from './db';
+import { db } from './api';
+import * as api from './api';
 
 const debug = require('debug');
 const log = debug('cumulus:log');
-const logDB = debug('cumulus:db');
+const logAPI = debug('cumulus:api');
 const logRx = debug('cumulus:Rx');
 const app = express();
+
+function LC(req: express.Request, res: express.Response, next: express.NextFunction) {
+    logAPI(`+${req.method} ${req.url} ${JSON.stringify(req.body)}`); res.send(req.body); next();
+}
+function LCN(req: express.Request, res: express.Response, next: express.NextFunction) {
+    logAPI(`!${req.method} ${req.url}`); next();
+}
 
 app.use(bodyParser.json());
 app.set('view engine', 'pug');
@@ -24,44 +31,66 @@ app.use(sass({
     indentedSyntax: false
 }))
 
+
+// fetch("http://localhost:58808/api/wrestlers", {
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     method: "POST",
+//     body: JSON.stringify({ a: 'foo', b: 'bar' })
+// })
+//     .then(res => res.json())
+//     .then(res => console.log(res))
+
+
+
+app.route('/:path*').put(LCN).post(LCN).delete(LCN)
 app.get('/', (req, res) => {
     res.render('index', { title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.' });
 })
-app.get('/sink', (req, res) => res.render('sink', { title: '[HInd] Kitchen Sink' }) )
+app.get('/sink', (req, res) => res.render('sink', { title: '[HInd] Kitchen Sink' }))
 app.use('/wr', weightroom);
-app.get('/db/exercises', api.getExercises);
-app.get('/db/exercises/:exercise_id', api.getExercisesById);
-app.get('/db/routines', api.getRoutines);
-app.get('/db/routines/:routine_id', api.getRoutinesById);
-app.get('/db/wrestlers', api.getWrestlers);
-app.get('/db/wrestlers/:wrestler_id', api.getWrestlersById);
-app.get('/db/wrestlers/:wrestler_id/full', api.getWrestlersByIdFull);
-app.get('/db/wrestlers/:wrestler_id/workouts', api.getWorkoutsByWrestler);
-app.get('/db/wrestlers/:wrestler_id/workouts/:workout_id', api.getWorkoutsById);
-
-app.get('/db/exercise_sets', (req, res) => {
-    db.many('SELECT * FROM exercise_sets')
-        .then((data: any) => res.send(data))
-        .catch((error: Error) => res.send(error));
-})
-app.get('/db/exercise_sets/:exercise_set_id', (req, res) => {
-    db.one('SELECT * FROM exercise_sets WHERE exercise_set_id = ${exercise_set_id}', req.params)
-        .then(data => res.send(data))
-        .catch(error => res.send(error));
-})
-app.get('/db/workouts', (req, res) => {
-    db.many('SELECT * FROM workouts')
-        .then((data: any) => res.send(data))
-        .catch((error: Error) => res.send(error));
-})
-app.get('/db/workouts/:workout_id', (req, res) => {
-    db.one('SELECT * FROM workouts WHERE workout_id = ${workout_id}', req.params)
-        .then(data => res.send(data))
-        .catch(error => res.send(error));
-})
+app.route('/api/exercises')
+    .get(api.getExercises)
+    .post(LC)
+    .delete(LC)
+app.route('/api/exercises/:exercise_id')
+    .get(api.getExercisesById)
+    .put(LC)
+    .delete(LC)
+app.route('/api/routines')
+    .get(api.getRoutines)
+    .post(LC)
+    .delete(LC)
+app.route('/api/routines/:routine_id')
+    .get(api.getRoutinesById)
+    .put(LC)
+    .delete(LC)
+app.route('/api/wrestlers')
+    .get(api.getWrestlers)
+    .post(LC)
+    .delete(LC)
+app.route('/api/wrestlers/:wrestler_id')
+    .get(api.getWrestlersById)
+    .put(LC)
+    .delete(LC)
+app.get('/api/wrestlers/:wrestler_id/full', api.getWrestlersByIdFull);
+app.route('/api/wrestlers/:wrestler_id/workouts')
+    .get(api.getWorkoutsByWrestler)
+    .post(LC)
+    .delete(LC)
+app.route('/api/wrestlers/:wrestler_id/workouts/:workout_id')
+    .get(api.getWorkoutsByWrestlerAndId)
+    .put(LC)
+    .delete(LC)
 
 app.use(express.static('public'));
 app.use('/js', express.static('lib/public'));
+
+// app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+//     logAPI(err);
+//     next();
+// })
 
 app.listen(58808, () => log('Cumulus listening on port 58808!'))
 

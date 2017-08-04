@@ -16,7 +16,7 @@ const cn: string = process.env.DATABASE_URL as string;
 export const db: IDatabase<any> = pgp(cn);
 
 export function getWrestlers(req: express.Request, res: express.Response) {
-    db.many('SELECT * FROM exercise_sets')
+    db.many('SELECT * FROM wrestlers')
         .then(data => res.send(data))
         .catch(error => res.send(error));
 }
@@ -41,10 +41,10 @@ export function getWorkoutsByWrestler(req: express.Request, res: express.Respons
         .catch(error => res.send(error));
 }
 
-export function getWorkoutsById(req: express.Request, res: express.Response) {
-    db.one('SELECT * FROM workouts WHERE workout_id = ${workout_id}', req.params)
+export function getWorkoutsByWrestlerAndId(req: express.Request, res: express.Response) {
+    db.one('SELECT * FROM workouts WHERE workout_id = ${workout_id} AND wrestler_id = ${wrestler_id}', req.params)
         .then(data => res.send(data))
-        .catch(error => res.send(error));
+        .catch(error => res.status(404).send({error: error.name, query: error.query}));
 }
 
 export function getRoutines(req: express.Request, res: express.Response) {
