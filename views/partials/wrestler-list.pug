@@ -1,5 +1,16 @@
-div
-    h1 A LIST of WRESTLERS! Can ya believe it?
-    ul
+div.wrestler-list
+    p Workouts
+    table: tbody
+        tr
+            th View
+            th Name
+            th ID #
+            th # Workouts
+            th Delete
         each wrestler in wrestlers
-            include ./wrestler-detail
+            tr
+                td.view: a(href='./wrestlers/'+wrestler.id) View
+                td.name= wrestler.name
+                td.id= wrestler.id
+                td.workouts= wrestler.workouts.length
+                td.delete: a(href='#') X
