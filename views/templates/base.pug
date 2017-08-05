@@ -30,6 +30,9 @@ html.no-js(lang='en')
                 p.small Generated at: #[time(datetime=now)= now.toLocaleString()]
 
         script(src='/vendor/system.js')
-        script
-            SystemJS.import('/js/app.js');
-        //- script(src='/js/app.js')
+        script.
+            System.config({
+                  format: 'register',
+                  defaultExtension: '.js'
+            })
+            SystemJS.import('/js/app.js').then(()=>System.import('client/app'));
