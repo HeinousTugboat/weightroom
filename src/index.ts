@@ -17,10 +17,13 @@ const logRx = debug('cumulus:Rx');
 const app = express();
 
 function LC(req: express.Request, res: express.Response, next: express.NextFunction) {
-    logAPI(`+${req.method} ${req.url} ${JSON.stringify(req.body)}`); res.send(req.body); next();
+    logAPI(`+${req.method} ${req.url} ${JSON.stringify(req.body)}`);
+    res.send(req.body);
+    next();
 }
 function LCN(req: express.Request, res: express.Response, next: express.NextFunction) {
-    logAPI(`!${req.method} ${req.url}`); next();
+    logAPI(`!${req.method} ${req.url}`);
+    next();
 }
 
 app.use(bodyParser.json());
