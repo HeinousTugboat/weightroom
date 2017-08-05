@@ -15,7 +15,7 @@ f.putJSON('/wrestlers/1', { foot: 'ad', bart: 34 })
     .then(x => console.log('PUTANG!', x))
     .catch(err => console.error('PUTTY ERROR! beeeeeeep', err));
 f.getHTML('exercise-list').then(el=>(<HTMLElement>document.querySelector('main')).appendChild(el))
-f.getHTML('exercise', 1).then(el=>(<HTMLElement>document.querySelector('main')).appendChild(el))
+f.getHTML('exercise-detail', 1).then(el=>(<HTMLElement>document.querySelector('main')).appendChild(el))
 
 function submitJSON(data: object) {
     fetch('/wr/wrestlers/add', {

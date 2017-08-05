@@ -30,12 +30,11 @@ router.get('/', (req, res, next) => {
 })
 
 let exercises = JSON.parse(datas).exercises;
-log(exercises[1]);
 router.get('/partials/exercise-list', (req, res, next) => {
     res.render('partials/exercise-list', { exercises })
 })
-router.get('/partials/exercise/:exercise_id', (req, res, next) => {
-    res.render('partials/exercise', { exercise: exercises[req.params.exercise_id] })
+router.get('/partials/exercise-detail/:exercise_id', (req, res, next) => {
+    res.render('partials/exercise-detail', { exercise: exercises[req.params.exercise_id] })
 })
 router.get('/wrestlers', (req, res, next) => {
     res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: vm.getState().wrestlers })
