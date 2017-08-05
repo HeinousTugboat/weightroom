@@ -29,5 +29,7 @@ html.no-js(lang='en')
                 - let now = new Date(Date.now());
                 p.small Generated at: #[time(datetime=now)= now.toLocaleString()]
 
-
-        script(src='/js/app.js')
+        script(src='/vendor/system.js')
+        script
+            SystemJS.import('/js/app.js');
+        //- script(src='/js/app.js')

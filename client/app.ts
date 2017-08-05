@@ -1,4 +1,10 @@
+import Wrestler from '../src/weightroom/models/wrestler';
+import { Workout, Exercise, ExerciseSet } from '../src/weightroom/models/workout';
+import Routine from '../src/weightroom/models/routine';
+import { getJSON } from './fetch';
+
 console.log('Client-side JS loaded!');
+getJSON('');
 
 function submitJSON(data: object) {
     fetch('/wr/wrestlers/add', {

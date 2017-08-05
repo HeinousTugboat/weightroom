@@ -85,7 +85,8 @@ app.route('/api/wrestlers/:wrestler_id/workouts/:workout_id')
     .delete(LC)
 
 app.use(express.static('public'));
-app.use('/js', express.static('lib/public'));
+app.use('/vendor', express.static('vendor'));
+// app.use('/js', express.static('lib/public'));
 
 // app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
 //     logAPI(err);
