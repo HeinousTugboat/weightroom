@@ -8,7 +8,7 @@ import * as Rx from 'rxjs/Rx';
 import * as bodyParser from 'body-parser';
 
 import { db } from './api';
-import * as api from './api';
+import api from './api';
 
 const debug = require('debug');
 const log = debug('cumulus:log');
@@ -32,70 +32,50 @@ app.use(sass({
     src: 'stylesheets',
     response: true,
     indentedSyntax: false
-}))
-
-
-// fetch("http://localhost:58808/api/wrestlers", {
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     method: "POST",
-//     body: JSON.stringify({ a: 'foo', b: 'bar' })
-// })
-//     .then(res => res.json())
-//     .then(res => console.log(res))
-
-
+}));
 
 app.route('/:path*').put(LCN).post(LCN).delete(LCN)
 app.get('/', (req, res) => {
     res.render('index', { title: '[HInd] Weightroom', header: 'Welcome to the Weightroom', content: 'Foo. Bar.' });
-})
+});
 app.get('/sink', (req, res) => res.render('sink', { title: '[HInd] Kitchen Sink' }))
 app.use('/wr', weightroom);
 app.route('/api/exercises')
     .get(api.getExercises)
-    .post(LC)
-    .delete(LC)
+    .post(api.insertExercise)
+    // .delete(LC)
 app.route('/api/exercises/:exercise_id')
     .get(api.getExercisesById)
     .put(LC)
-    .delete(LC)
+    // .delete(LC)
 app.route('/api/routines')
     .get(api.getRoutines)
-    .post(LC)
-    .delete(LC)
+    .post(api.insertRoutine)
+    // .delete(LC)
 app.route('/api/routines/:routine_id')
     .get(api.getRoutinesById)
     .put(LC)
-    .delete(LC)
+    // .delete(LC)
 app.route('/api/wrestlers')
     .get(api.getWrestlers)
-    .post(LC)
-    .delete(LC)
+    .post(api.insertWrestler)
+    // .delete(LC)
 app.route('/api/wrestlers/:wrestler_id')
     .get(api.getWrestlersById)
     .put(LC)
-    .delete(LC)
+    // .delete(api.deleteWrestlerById)
 app.get('/api/wrestlers/:wrestler_id/full', api.getWrestlersByIdFull);
 app.route('/api/wrestlers/:wrestler_id/workouts')
     .get(api.getWorkoutsByWrestler)
-    .post(LC)
-    .delete(LC)
+    .post(api.insertWorkout)
+    // .delete(LC)
 app.route('/api/wrestlers/:wrestler_id/workouts/:workout_id')
     .get(api.getWorkoutsByWrestlerAndId)
     .put(LC)
-    .delete(LC)
+    // .delete(api.deleteWorkoutById)
 
 app.use(express.static('public'));
 app.use('/vendor', express.static('vendor'));
-// app.use('/js', express.static('lib/public'));
-
-// app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-//     logAPI(err);
-//     next();
-// })
-
-app.listen(58808, () => log('Cumulus listening on port 58808!'))
+app.listen(58808, () => log('Cumulus listening on port 58808!'));
 
 log('Cumulus started...');
