@@ -9,10 +9,13 @@ export default class Wrestler {
     static list: Wrestler[] = [];
     static id: number = 0;
 
-    id: number = Wrestler.id++;
+    id: number;
     name: string;
     workouts: Workout[] = [];
     routine: Routine;
+    age: number;
+    weight: number;
+    weight_unit: number;
     constructor(name: string) {
         this.name = name;
         // this.id = -1;

@@ -4,15 +4,25 @@ import Routine from '../src/weightroom/models/routine';
 import * as f from './fetch';
 
 console.log('Client-side JS loaded!');
+
+let Joey = new Wrestler('New Joey-'+Math.round(Math.random() * 100));
+Joey.age = 30;
+Joey.weight = 250;
+
 f.getJSON('/wrestlers')
     .then(x => x.forEach((item: Wrestler) => console.log('GET', item)))
     .catch(err => console.error('GET ERROR!', err));
-f.postJSON('/wrestlers', { wrestler_name: 'Joey-' + Math.round(Math.random() * 100) })
+// f.postJSON('/wrestlers', { wrestler_name: 'Joey-' + Math.round(Math.random() * 100) })
+f.postJSON('/wrestlers', Joey)
+    .then(x => {
+        console.log('POSTRES', x);
+        return Promise.resolve(x);
+    })
     .then(x => f.getJSON('/wrestlers/' + (<any>x).wrestler_id))
     .then(x => console.log('POSTGET', x))
     // .then(x => console.log('POST', x))
     .catch(err => console.error('POST ERROR!', err));
-f.putJSON('/wrestlers/1', { foot: 'ad', bart: 34 })
+f.putJSON('/wrestlers/1', Joey)
     .then(x => console.log('PUT', x))
     .catch(err => console.error('PUT ERROR!', err));
 // f.deleteJSON('/wrestlers/2')
