@@ -39,9 +39,9 @@ export interface routineSetJSON {
 export interface workoutJSON {
     workout_id: number;
     wrestler_id: number;
+    workout_date: Date;
     routine_id?: number | null;
     routine_template_id?: number | null;
-    workout_date?: Date | null;
     workout_duration?: Date | null; //???
     workout_label?: string | null;
 }

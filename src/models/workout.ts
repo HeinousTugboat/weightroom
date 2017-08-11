@@ -55,7 +55,19 @@ export class Workout {
         }
     }
 
-    static fromJSON(json: workoutJSON) {
+    static fromJSON(wrestler: Wrestler, json: workoutJSON): Workout {
+        if (wrestler.id !== json.wrestler_id) {
+            throw new TypeError(`Wrestler ID (${wrestler.id}) doesn't match Workout ID (${json.wrestler_id})! [workout ${json.workout_id}]`);
+        }
+        let workout = new Workout(wrestler, json.workout_id);
+        workout.date = json.workout_date;
+        json.workout_duration && (workout.duration = json.workout_duration);
+        json.workout_label && (workout.label = json.workout_label);
+        // json.routine_id
+        // json.routine_template_id
 
+        workout.dirty = false;
+
+        return workout;
     }
 }

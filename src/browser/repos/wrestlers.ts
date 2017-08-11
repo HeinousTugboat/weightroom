@@ -21,10 +21,15 @@ export default class wrestlerRepo {
                 return Promise.resolve(Wrestler.fromJSON(wrestler));
             });
     }
+    getWrestlerFull(id: number): Promise<Wrestler> {
+        return this.get('/wrestlers/' + id + '/full')
+            .then(({ wrestler, workouts }: {wrestler: wrestlerJSON, workouts: workoutJSON[]})=>{
+                return Promise.resolve(Wrestler.fromJSON(wrestler, workouts));
+            })
+    }
     putWrestler(wrestler: Wrestler): Promise<wrestlerJSON> {
         if (wrestler.id) {
-            return Promise.all(wrestler.workouts
-                .filter(x => x.dirty)
+            return Promise.all(wrestler.workouts.filter(x => x.dirty)
                 .map(x => this.postWorkout(wrestler, x)))
                 .then(() => this.put('/wrestlers/' + wrestler.id, wrestler));
             // return this.put('/wrestlers/' + wrestler.id, wrestler)

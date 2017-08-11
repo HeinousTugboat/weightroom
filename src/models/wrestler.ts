@@ -3,7 +3,7 @@
  */
 
 import { Workout } from './workout';
-import { wrestlerJSON, weightUnit } from './json-interfaces';
+import { wrestlerJSON, workoutJSON, weightUnit } from './json-interfaces';
 
 export default class Wrestler {
     static list: Wrestler[] = [];
@@ -25,11 +25,14 @@ export default class Wrestler {
         };
     }
 
-    static fromJSON(json: wrestlerJSON): Wrestler {
+    static fromJSON(json: wrestlerJSON, workouts?: workoutJSON[]): Wrestler {
         let wrestler = new Wrestler(json.wrestler_name, json.wrestler_id);
         json.wrestler_age && (wrestler.age = json.wrestler_age);
         json.wrestler_weight && (wrestler.weight = json.wrestler_weight);
         wrestler.weightUnit = json.wrestler_weight_unit || weightUnit.IMPERIAL;
+        if (workouts) {
+            workouts.forEach(workout => wrestler.workouts.push(Workout.fromJSON(wrestler, workout)));
+        }
         return wrestler;
     }
 }

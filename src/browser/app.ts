@@ -11,7 +11,7 @@ const repo = {
 
 repo.wrestlers.getWrestlers().then(x => console.table(x));
 repo.wrestlers.postWrestler(new Wrestler('Tom-' + Math.round(Math.random() * 100)))
-repo.wrestlers.getWrestler(67)
+repo.wrestlers.getWrestlerFull(67)
     // .then(x => Promise.resolve(repo.wrestlers.convert(x)))
     .then(x => {
         x.age += 17;
