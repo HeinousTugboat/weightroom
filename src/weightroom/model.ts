@@ -8,8 +8,8 @@
  */
 
 import * as Rx from 'rxjs/Rx';
-import Wrestler from './models/wrestler';
-import {Workout} from './models/workout';
+import Wrestler from '../models/wrestler';
+import {Workout} from '../models/workout';
 import * as Actions from './actions';
 
 const debug = require('debug');

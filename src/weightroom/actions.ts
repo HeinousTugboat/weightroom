@@ -1,5 +1,5 @@
-import Wrestler from './models/wrestler';
-import { Workout } from './models/workout';
+import Wrestler from '../models/wrestler';
+import { Workout } from '../models/workout';
 
 
 export interface Base<T> {

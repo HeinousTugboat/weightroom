@@ -1,9 +1,9 @@
 {
   "name": "cumulus",
   "version": "0.0.1",
-  "description": "My first forray into playing with Node.",
-  "main": "lib/index",
-  "types": "lib/index",
+  "description": "My first foray into playing with Node.",
+  "main": "src/index",
+  "types": "src/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build:live",

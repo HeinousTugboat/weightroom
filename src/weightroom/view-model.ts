@@ -9,7 +9,7 @@
 
 import * as Rx from 'rxjs/Rx';
 import { Model, State } from './model';
-import Wrestler from './models/wrestler';
+import Wrestler from '../models/wrestler';
 import { Base as Action, AddWrestler } from './actions';
 
 const debug = require('debug');

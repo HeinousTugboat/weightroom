@@ -6,7 +6,7 @@
 import * as Rx from 'rxjs/Rx';
 import ViewModel from './wrestlers.viewmodel';
 import { Model, State } from '../model';
-import Wrestler from '../models/wrestler';
+import Wrestler from '../../models/wrestler';
 
 const debug = require('debug');
 const log = debug('cumulus:views:index');
