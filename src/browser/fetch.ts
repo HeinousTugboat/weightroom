@@ -1,6 +1,6 @@
-import Wrestler from '../src/weightroom/models/wrestler';
-import { Workout, Exercise, ExerciseSet } from '../src/weightroom/models/workout';
-import Routine from '../src/weightroom/models/routine';
+import Wrestler from '../models/wrestler';
+import { Workout, Exercise, ExerciseSet } from '../models/workout';
+// import Routine from '../models/routine';
 
 export function getJSON(url: string = ''): Promise<any> {
     return fetch('/api' + url, {
@@ -9,7 +9,7 @@ export function getJSON(url: string = ''): Promise<any> {
     }).then(res => res.json())
 }
 
-export function postJSON(url: string = '', obj: any = {}): Promise<void> {
+export function postJSON(url: string = '', obj: any = {}): Promise<any> {
     return fetch('/api' + url, {
         headers: { 'Content-Type': 'application/json' },
         method: "POST",
@@ -21,7 +21,7 @@ export function postJSON(url: string = '', obj: any = {}): Promise<void> {
     .then(res => res.json())
 }
 
-export function putJSON(url: string = '', obj: any = {}): Promise<void> {
+export function putJSON(url: string = '', obj: any = {}): Promise<any> {
     return fetch('/api' + url, {
         headers: { 'Content-Type': 'application/json' },
         method: "PUT",
