@@ -65,7 +65,7 @@ const cols = {
 function getWrestlersByIdFull(req: express.Request, res: express.Response) {
     Promise.all([
         db.one('SELECT * FROM wrestlers WHERE wrestler_id = ${wrestler_id}', req.params),
-        db.many('SELECT * FROM workouts NATURAL JOIN routines WHERE wrestler_id = ${wrestler_id}', req.params)
+        db.many('SELECT * FROM workouts WHERE wrestler_id = ${wrestler_id}', req.params)
     ])
         .then(data => res.send({ wrestler: data[0], workouts: data[1] }))
         .catch(error => res.send(error));
