@@ -7,6 +7,7 @@
 import express = require('express');
 import { IMain, IDatabase } from 'pg-promise';
 import * as pgPromise from 'pg-promise';
+import * as url from 'url';
 
 const pgp: IMain = pgPromise({
     capSQL: true
@@ -19,43 +20,43 @@ export const db: IDatabase<any> = pgp(cn);
 
 const cols = {
     wrestler: new pgp.helpers.ColumnSet([
-        { name: 'wrestler_name', prop: 'name' },
-        { name: 'wrestler_age', prop: 'age', def: -1 },
-        { name: 'wrestler_weight', prop: 'weight', def: -1 },
-        { name: 'wrestler_weight_unit', prop: 'unit', def: 1 }
+        'wrestler_name',
+        { name: 'wrestler_age', def: null },
+        { name: 'wrestler_weight', def: null },
+        { name: 'wrestler_weight_unit', def: 1 }
     ], { table: 'wrestlers' }),
     workout: new pgp.helpers.ColumnSet([
         'wrestler_id',
-        'routine_id',
-        'routine_template_id',
-        { name: 'workout_date', prop: 'date', def: 0 },
-        { name: 'workout_duration', prop: 'duration', def: -1 },
-        { name: 'workout_label', prop: 'label', def: '' }
+        { name: 'workout_date', def: new Date },
+        { name: 'routine_id', def: null },
+        { name: 'routine_template_id', def: null },
+        { name: 'workout_duration', def: null },
+        { name: 'workout_label', def: null }
     ], { table: 'workouts' }),
     exercise_set: new pgp.helpers.ColumnSet([
         'exercise_id',
         'workout_id',
-        { name: 'routine_set_id', def: -1 },
-        { name: 'exercise_reps', prop: 'reps', def: -1 },
-        { name: 'exercise_weight', prop: 'weight', def: -1 },
-        { name: 'exercise_weight_unit', prop: 'unit', def: 1 }
+        'exercise_reps',
+        'exercise_weight',
+        { name: 'routine_set_id', def: null },
+        { name: 'exercise_weight_unit', def: 1 }
     ], { table: 'exercise_sets' }),
     exercise: new pgp.helpers.ColumnSet([
-        { name: 'exercise_name', prop: 'name' }
+        'exercise_name'
     ], { table: 'exercises' }),
     routine: new pgp.helpers.ColumnSet([
-        { name: 'routine_label', prop: 'label' }
+        'routine_label'
     ], { table: 'routines' }),
     routine_template: new pgp.helpers.ColumnSet([
         'routine_id',
-        { name: 'routine_name', prop: 'name' },
+        'routine_name'
     ], { table: 'routine_templates' }),
     routine_set: new pgp.helpers.ColumnSet([
         'routine_id',
-        { name: 'routine_template_id', prop: 'template_id' },
+        'routine_template_id',
         'exercise_id',
-        { name: 'exercise_reps', def: -1 },
-        { name: 'exercise_weight', def: -1 }
+        'exercise_reps',
+        { name: 'exercise_weight', def: null }
     ], { table: 'routine_sets' }),
 
 
@@ -95,7 +96,9 @@ function selectAllItemsByClause(table: string, label: string) {
 function insertItemIntoTable(id: string, colSet: pgPromise.ColumnSet) {
     return function(req: express.Request, res: express.Response) {
         db.one(pgp.helpers.insert(req.body, colSet) + ` RETURNING *`, req.body)
-            .then(data => res.status(201).location(req.get('referer') + '/' + data[id]).send(data))
+            .then(data => res.status(201)
+                .location('' + req.get('origin') + url.parse(req.url).pathname + '/' + data[id])
+                .send(data))
             .catch(error => res.send(error));
     }
 }

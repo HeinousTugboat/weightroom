@@ -37,19 +37,19 @@ CREATE TABLE routine_sets (
 CREATE TABLE workouts (
     workout_id serial PRIMARY KEY,
     wrestler_id int NOT NULL REFERENCES wrestlers(wrestler_id),
-    routine_id int REFERENCES routines(routine_id),
-    routine_template_id int REFERENCES routine_templates(routine_template_id),
     workout_date timestamp NOT NULL,
     workout_duration time,
-    workout_label text
+    workout_label text,
+    routine_id int REFERENCES routines(routine_id),
+    routine_template_id int REFERENCES routine_templates(routine_template_id)
     );
 CREATE TABLE exercise_sets (
     exercise_set_id serial PRIMARY KEY,
     exercise_id int NOT NULL REFERENCES exercises(exercise_id),
     workout_id int NOT NULL REFERENCES workouts(workout_id),
-    routine_set_id int REFERENCES routine_sets(routine_set_id),
     exercise_reps int NOT NULL,
     exercise_weight int NOT NULL,
+    routine_set_id int REFERENCES routine_sets(routine_set_id),
     exercise_weight_unit int
     );
 
