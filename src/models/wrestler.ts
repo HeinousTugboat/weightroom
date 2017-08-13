@@ -1,9 +1,9 @@
+import { weightUnit, workoutJSON, wrestlerJSON } from './json-interfaces';
+import { Workout } from './workout';
+
 /**
  * weightroom/wrestler.ts
  */
-
-import { Workout } from './workout';
-import { wrestlerJSON, workoutJSON, weightUnit } from './json-interfaces';
 
 export default class Wrestler {
     static list: Wrestler[] = [];

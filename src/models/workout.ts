@@ -1,9 +1,9 @@
+import { exerciseJSON, exerciseSetJSON, workoutJSON } from './json-interfaces';
+import Wrestler from './wrestler';
+
 /**
  * weightroom.ts
  */
-
-import Wrestler from './wrestler';
-import { workoutJSON, exerciseSetJSON, exerciseJSON } from './json-interfaces';
 
 export class Exercise {
     id: number;
