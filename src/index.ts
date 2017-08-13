@@ -1,6 +1,6 @@
 import * as bodyParser from 'body-parser';
-import express = require('express');
-import sass = require('node-sass-middleware');
+import * as express from 'express';
+import * as sass from 'node-sass-middleware';
 
 import api from './api';
 import weightroom from './weightroom';
@@ -9,6 +9,7 @@ import weightroom from './weightroom';
 // http://mherman.org/blog/2016/11/05/developing-a-restful-api-with-node-and-typescript/#.WWvhKIjyuUk
 // http://expressjs.com/en/starter/generator.html
 // import * as Rx from 'rxjs/Rx';
+
 const debug = require('debug');
 const log = debug('cumulus:log');
 const app = express();

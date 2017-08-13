@@ -1,10 +1,9 @@
-import { exerciseJSON, workoutJSON, wrestlerJSON } from '../../models/json-interfaces';
-import { IDatabase, IMain, ColumnSet } from 'pg-promise';
-import Wrestler from '../../models/wrestler';
-import { Workout } from '../../models/workout';
+import { IMain } from 'pg-promise';
+
 import { pgp } from '../../db';
-
-
+import { exerciseJSON, workoutJSON, wrestlerJSON } from '../../models/json-interfaces';
+import { Workout } from '../../models/workout';
+import Wrestler from '../../models/wrestler';
 
 export default class WrestlersRepository {
     constructor(private db: any, private pgp: IMain) { }

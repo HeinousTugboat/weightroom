@@ -1,7 +1,7 @@
 import * as express from 'express';
-import wrestlers from './wrestlers';
+
 import exercises from './exercises';
-import db from '../db';
+import wrestlers from './wrestlers';
 
 /**
  * DB module!

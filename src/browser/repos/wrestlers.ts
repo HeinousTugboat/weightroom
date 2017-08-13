@@ -1,6 +1,6 @@
-import Wrestler from 'models/wrestler';
+import { workoutJSON, wrestlerJSON } from 'models/json-interfaces';
 import { Workout } from 'models/workout';
-import { wrestlerJSON, workoutJSON, weightUnit } from 'models/json-interfaces';
+import Wrestler from 'models/wrestler';
 
 
 
@@ -23,7 +23,7 @@ export default class wrestlerRepo {
     }
     getWrestlerFull(id: number): Promise<Wrestler> {
         return this.get('/wrestlers/' + id + '/full')
-            .then(({ wrestler, workouts }: {wrestler: wrestlerJSON, workouts: workoutJSON[]})=>{
+            .then(({ wrestler, workouts }: { wrestler: wrestlerJSON, workouts: workoutJSON[] }) => {
                 return Promise.resolve(Wrestler.fromJSON(wrestler, workouts));
             })
     }

@@ -1,11 +1,9 @@
-import { wrestlerJSON, workoutJSON } from '../models/json-interfaces';
 import * as express from 'express';
-import { IDatabase, IOptions, ColumnSet } from 'pg-promise';
+import { ColumnSet, IDatabase, IOptions } from 'pg-promise';
 import * as pgPromise from 'pg-promise';
-import * as url from 'url';
 
-import ExercisesRepo from "./repos/exercises";
-import WrestlersRepo from "./repos/wrestlers";
+import ExercisesRepo from './repos/exercises';
+import WrestlersRepo from './repos/wrestlers';
 
 /**
  * DB module!

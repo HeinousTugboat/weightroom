@@ -1,7 +1,8 @@
-import { exerciseJSON } from '../../models/json-interfaces';
-import { IDatabase, IMain } from 'pg-promise';
+import { IMain } from 'pg-promise';
+
 import { pgp } from '../../db';
-import {Exercise} from '../../models/workout';
+import { exerciseJSON } from '../../models/json-interfaces';
+import { Exercise } from '../../models/workout';
 
 export default class ExercisesRepository {
     constructor(private db: any, private pgp: IMain) { }
@@ -17,7 +18,7 @@ export default class ExercisesRepository {
     // remove() { }
     findById(id: number): Promise<exerciseJSON> {
         return this.db.oneOrNone('SELECT * FROM exercises WHERE exercise_id = $1', id);
-     }
+    }
     // findByName() { }
     update(id: number, exercise: Exercise): Promise<exerciseJSON> {
         return this.db.oneOrNone(pgp.helpers.update(exercise, this.db.cols.exercise) + ' WHERE exercise_id = $1 RETURNING *', id);

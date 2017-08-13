@@ -1,3 +1,4 @@
+
 // import Wrestler from '../models/wrestler';
 // import { Workout, Exercise, ExerciseSet } from '../models/workout';
 // import Routine from '../models/routine';
@@ -14,11 +15,11 @@ export function postJSON(url: string = '', obj: any = {}): Promise<any> {
         headers: { 'Content-Type': 'application/json' },
         method: "POST",
         body: JSON.stringify(obj)
-    }).then(res=>{
+    }).then(res => {
         console.log(res.headers.get('location'));
         return Promise.resolve(res);
     })
-    .then(res => res.json())
+        .then(res => res.json())
 }
 
 export function putJSON(url: string = '', obj: any = {}): Promise<any> {

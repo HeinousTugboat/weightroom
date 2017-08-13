@@ -1,8 +1,8 @@
-import { Exercise } from '../models/workout';
-import db from '../db';
 import * as express from 'express';
 import * as pgPromise from 'pg-promise';
 import * as url from 'url';
+
+import db from '../db';
 
 const sendRes = (res: express.Response) => (data: any) => res.send(data);
 const errorRes = (res: express.Response) => (error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query });

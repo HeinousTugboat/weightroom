@@ -1,10 +1,6 @@
 import { exerciseJSON, exerciseSetJSON, workoutJSON } from './json-interfaces';
 import Wrestler from './wrestler';
 
-/**
- * weightroom.ts
- */
-
 export class Exercise {
     id: number;
     constructor(public name: string) { }
@@ -25,7 +21,7 @@ export class ExerciseSet {
     weight: number = 0;
     setNumber: number = 1;
     dirty: boolean = true;
-    constructor() {}
+    constructor() { }
 
     toJSON() {
 
@@ -43,7 +39,7 @@ export class Workout {
     dirty: boolean = true;
     label: string;
     duration: Date;
-    constructor(public wrestler: Wrestler, public id: number = -1) {}
+    constructor(public wrestler: Wrestler, public id: number = -1) { }
 
     toJSON(): workoutJSON {
         return {
