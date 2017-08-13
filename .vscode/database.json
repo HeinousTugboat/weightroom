@@ -1,0 +1,18 @@
+{
+	"extension.databases": [
+		{
+			"type": "postgres",
+			"name": "cumulus@localhost:60888 (postgres)",
+			"host": "localhost:60888",
+			"user": "cumulus",
+			"password": "nineball"
+		},
+		{
+			"type": "postgres",
+			"name": "cumulus@localhost:60888 (postgres)",
+			"host": "localhost:60888",
+			"user": "cumulus",
+			"password": "nineball"
+		}
+	]
+}
