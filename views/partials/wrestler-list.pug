@@ -12,5 +12,5 @@ div.wrestler-list
                 td.view: a(href='./wrestlers/'+wrestler.id) View
                 td.name= wrestler.name
                 td.id= wrestler.id
-                td.workouts= wrestler.workouts.length
+                td.workouts= (wrestler.workouts && wrestler.workouts.length) || 0
                 td.delete: a(href='#') X
