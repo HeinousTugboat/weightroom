@@ -1,5 +1,5 @@
-import Wrestler from '../models/wrestler';
-import { Workout, Exercise, ExerciseSet } from '../models/workout';
+// import Wrestler from '../models/wrestler';
+// import { Workout, Exercise, ExerciseSet } from '../models/workout';
 // import Routine from '../models/routine';
 
 export function getJSON(url: string = ''): Promise<any> {

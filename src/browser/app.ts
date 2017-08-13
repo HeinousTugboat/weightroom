@@ -1,10 +1,11 @@
+import { Workout } from '../models/workout';
 import Wrestler from '../models/wrestler';
-import { Workout, Exercise, ExerciseSet } from '../models/workout';
-// import Routine from '../models/routine';
 import * as f from './fetch';
 import wrestlerRepo from './repos/wrestlers';
 
+// import Routine from '../models/routine';
 console.log('Client-side JS loaded!');
+console.log('VS-Code compilation working!');
 const repo = {
     wrestlers: new wrestlerRepo(f.getJSON, f.putJSON, f.postJSON)
 };
