@@ -1,7 +1,8 @@
+import { Workout } from '../models/workout';
 import * as express from 'express';
 
 import db from '../db';
-import { wrestlerJSON } from '../models/json-interfaces';
+import { exerciseJSON, workoutJSON, wrestlerJSON } from '../models/json-interfaces';
 import Wrestler from '../models/wrestler';
 
 /**
@@ -28,9 +29,19 @@ router.get('/wrestlers', (req, res, next) => {
 router.get('/wrestlers/add', (req, res, next) => {
     res.redirect('../wrestlers');
 })
+function isWrestlerJSON(data: wrestlerJSON | workoutJSON[]): data is wrestlerJSON {
+    return (<wrestlerJSON>data).wrestler_name !== undefined && (<wrestlerJSON>data).wrestler_id !== undefined;
+}
 router.get('/wrestlers/:wrestler_id', (req, res, next) => {
-    db.wrestlers.findById(req.params.wrestler_id)
-        .then(data => Promise.resolve(Wrestler.fromJSON(data)))
+    db.wrestlers.findByIdFull(req.params.wrestler_id)
+        .then(data => Promise.resolve(data.reduce((acc: Wrestler, val) => {
+            if (isWrestlerJSON(val)) {
+                return Wrestler.fromJSON(val);
+            } else {
+                acc.workouts = val.map((workout: workoutJSON) => Workout.fromJSON(acc, workout));
+                return acc;
+            }
+        }, (<Wrestler>{}))))
         .then(wrestler => res.render('wrestler-profile', wrestler))
 })
 

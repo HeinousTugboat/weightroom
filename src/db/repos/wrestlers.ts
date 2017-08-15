@@ -20,7 +20,7 @@ export default class WrestlersRepository {
     findById(id: number): Promise<wrestlerJSON> {
         return this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id);
     }
-    findByIdFull(id: number): Promise<(wrestlerJSON | exerciseJSON[])[]> {
+    findByIdFull(id: number): Promise<(wrestlerJSON | workoutJSON[])[]> {
         return Promise.all([
             this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id),
             this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1', id)

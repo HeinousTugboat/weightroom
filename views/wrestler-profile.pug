@@ -3,5 +3,15 @@ extends templates/base.pug
 
 block content
     div.wrestler-profile
-        p= `Name: ${wrestler[0].name} (ID-${id})`
+        p= `Name: ${name} (ID-${id})`
+        p= `Age: ${age}`
+        if (weight > 0)
+            p= `Weight: ${weight}`
+        if (workouts.length)
+            p= `Workouts: ${workouts.length}`
+        //- p= JSON.stringify(workouts)
+        ul
+            each workout in workouts
+                //- li= JSON.stringify(workout)
+                li= `${workout.id} [${workout.date.toLocaleString()}]`
 
