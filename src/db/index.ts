@@ -1,9 +1,11 @@
+import ExerciseSetsRepo from './repos/exercise-sets';
 import * as express from 'express';
 import { ColumnSet, IDatabase, IOptions } from 'pg-promise';
 import * as pgPromise from 'pg-promise';
 
 import ExercisesRepo from './repos/exercises';
 import WrestlersRepo from './repos/wrestlers';
+import WorkoutsRepo from './repos/workouts';
 
 /**
  * DB module!
@@ -14,6 +16,8 @@ import WrestlersRepo from './repos/wrestlers';
 export interface IExtensions {
     wrestlers: WrestlersRepo,
     exercises: ExercisesRepo,
+    workouts: WorkoutsRepo,
+    sets: ExerciseSetsRepo,
     cols: {
         wrestler: ColumnSet,
         workout: ColumnSet,
@@ -27,6 +31,8 @@ const initOptions: IOptions<IExtensions> = {
     extend: (obj: IExtensions, dc: any) => {
         obj.wrestlers = new WrestlersRepo(obj, dc);
         obj.exercises = new ExercisesRepo(obj, dc);
+        obj.workouts = new WorkoutsRepo(obj, dc);
+        obj.sets = new ExerciseSetsRepo(obj, dc);
         obj.cols = {
             wrestler: new pgp.helpers.ColumnSet([
                 'wrestler_name',

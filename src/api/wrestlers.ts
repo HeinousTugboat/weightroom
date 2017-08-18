@@ -26,14 +26,14 @@ const getAllWrestlers = (req: express.Request, res: express.Response) =>
     db.wrestlers.all().then(sendRes(res)).catch(errorRes(res));
 
 const insertWorkout = (req: express.Request, res: express.Response) =>
-    db.wrestlers.addWorkout(req.body).then(insertRes(req, res, 'workout_id')).catch(errorRes(res));
+    db.workouts.add(req.body).then(insertRes(req, res, 'workout_id')).catch(errorRes(res));
 const getWorkouts = (req: express.Request, res: express.Response) =>
-    db.wrestlers.findWorkouts(req.params.wrestler_id).then(sendRes(res)).catch(errorRes(res));
+    db.workouts.find(req.params.wrestler_id).then(sendRes(res)).catch(errorRes(res));
 const getWorkoutsById = (req: express.Request, res: express.Response) =>
-    db.wrestlers.findWorkoutById(req.params.workout_id, req.params.wrestler_id)
+    db.workouts.findByWrestler(req.params.workout_id, req.params.wrestler_id)
         .then(sendRes(res)).catch(errorRes(res));
 const updateWorkout = (req: express.Request, res: express.Response) =>
-    db.wrestlers.updateWorkout(req.params.workout_id, req.body).then(sendRes(res)).catch(errorRes(res));
+    db.wrestlers.update(req.params.workout_id, req.body).then(sendRes(res)).catch(errorRes(res));
 
 let wrestlers;
 export default wrestlers = {

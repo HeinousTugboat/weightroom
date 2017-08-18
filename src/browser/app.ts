@@ -10,18 +10,18 @@ const repo = {
     wrestlers: new wrestlerRepo(f.getJSON, f.putJSON, f.postJSON)
 };
 
-repo.wrestlers.getWrestlers().then(x => console.table(x));
-repo.wrestlers.postWrestler(new Wrestler('Tom-' + Math.round(Math.random() * 100)))
-repo.wrestlers.getWrestlerFull(67)
-    // .then(x => Promise.resolve(repo.wrestlers.convert(x)))
-    .then(x => {
-        x.age += 17;
-        x.workouts.push(new Workout(x));
-        console.log(x);
-        return Promise.resolve(x);
-    }).then(x => repo.wrestlers.putWrestler(x))
-    .then(x => console.log(x))
-    .catch(x => console.error(x));
+// repo.wrestlers.getWrestlers().then(x => console.table(x));
+// repo.wrestlers.postWrestler(new Wrestler('Tom-' + Math.round(Math.random() * 100)))
+// repo.wrestlers.getWrestlerFull(67)
+//     // .then(x => Promise.resolve(repo.wrestlers.convert(x)))
+//     .then(x => {
+//         x.age += 17;
+//         x.workouts.push(new Workout(x));
+//         console.log(x);
+//         return Promise.resolve(x);
+//     }).then(x => repo.wrestlers.putWrestler(x))
+//     .then(x => console.log(x))
+//     .catch(x => console.error(x));
 
 // let Joey = new Wrestler('New Joey-'+Math.round(Math.random() * 100));
 // Joey.age = 30;

@@ -1,5 +1,6 @@
 import { Workout } from '../models/workout';
 import * as express from 'express';
+import * as pgPromise from 'pg-promise';
 
 import db from '../db';
 import { exerciseJSON, workoutJSON, wrestlerJSON } from '../models/json-interfaces';
@@ -25,7 +26,6 @@ router.get('/wrestlers', (req, res, next) => {
         .then(data => Promise.resolve(data.map(x => Wrestler.fromJSON(x))))
         .then(wrestlers => res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: wrestlers }));
 })
-// TODO: This needs a partial and proper implementation. Should be a form entry, I think.
 router.get('/wrestlers/add', (req, res, next) => {
     res.redirect('../wrestlers');
 })
@@ -43,6 +43,29 @@ router.get('/wrestlers/:wrestler_id', (req, res, next) => {
             }
         }, (<Wrestler>{}))))
         .then(wrestler => res.render('wrestler-profile', wrestler))
+})
+router.get('/wrestlers/:wrestler_id/workouts', (req, res, next) => {
+    res.redirect(req.baseUrl + '/wrestlers/' + req.params.wrestler_id);
+})
+router.get('/wrestlers/:wrestler_id/workouts/:workout_id', (req, res, next) => {
+    Promise.all([
+        db.wrestlers.findById(req.params.wrestler_id),
+        db.workouts.findByWrestler(req.params.workout_id, req.params.wrestler_id),
+        db.sets.find(req.params.workout_id)
+    ]).then(data => {
+        let wrestler = Wrestler.fromJSON(data[0]);
+        let workout;
+        if (data[1]) {
+            workout = Workout.fromJSON(wrestler, data[1]);
+        } else {
+            res.status(404).send('Workout Not Found..');
+        }
+        if (data[2]) {
+            res.render('workout', { wrestler: wrestler, workout: workout, sets: data[2] });
+        } else {
+            res.render('workout', { wrestler: Wrestler, workout: Workout, sets: [] });
+        }
+    }).catch((error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query }));
 })
 
 export default router;
