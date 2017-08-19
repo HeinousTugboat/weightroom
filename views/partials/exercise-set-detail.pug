@@ -1,0 +1,4 @@
+.exercise-set-detail
+    ul
+    each set in workout.sets
+        li= `#${set.setNumber}: ${set.reps}x ${set.weight} ${set.exercise.name}`

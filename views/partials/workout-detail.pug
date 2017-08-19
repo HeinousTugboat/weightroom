@@ -1,6 +1,8 @@
-h2 A WORKOUT!
-    p=JSON.stringify(wrestler)
+.workout-detail
+    h2 A WORKOUT!
+    p=`${wrestler.name}`
+    p=`Age: ${wrestler.age}`
     br
-    p=JSON.stringify(workout)
+    p=`${workout.date} [${workout.id}]`
     br
-    p=JSON.stringify(sets)
+    include exercise-set-detail

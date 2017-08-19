@@ -49,6 +49,7 @@ export interface workoutJSON {
 export interface exerciseSetJSON {
     exercise_set_id: number;
     exercise_id: number;
+    exercise_name?: string;
     workout_id: number;
     routine_set_id?: number | null;
     exercise_reps: number;

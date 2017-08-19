@@ -1,9 +1,9 @@
-import { Workout } from '../models/workout';
+import { ExerciseSet, Workout } from '../models/workout';
 import * as express from 'express';
 import * as pgPromise from 'pg-promise';
 
 import db from '../db';
-import { exerciseJSON, workoutJSON, wrestlerJSON } from '../models/json-interfaces';
+import { exerciseJSON, exerciseSetJSON, workoutJSON, wrestlerJSON } from '../models/json-interfaces';
 import Wrestler from '../models/wrestler';
 
 /**
@@ -54,16 +54,22 @@ router.get('/wrestlers/:wrestler_id/workouts/:workout_id', (req, res, next) => {
         db.sets.find(req.params.workout_id)
     ]).then(data => {
         let wrestler = Wrestler.fromJSON(data[0]);
-        let workout;
+        let workout: Workout;
         if (data[1]) {
             workout = Workout.fromJSON(wrestler, data[1]);
+            if (data[2]) {
+                workout.sets = data[2].reduce((acc, val) => {
+                    let set = ExerciseSet.fromJSON(workout, val);
+                    set.setNumber = acc.num;
+                    acc.sets.push(set);
+                    acc.num++;
+                    return acc;
+                }, {sets: <ExerciseSet[]>[], num: 1}).sets;
+                // workout.sets = data[2].map((json: exerciseSetJSON) => ExerciseSet.fromJSON(workout, json));
+            }
+            res.render('workout', { wrestler: wrestler, workout: workout });
         } else {
             res.status(404).send('Workout Not Found..');
-        }
-        if (data[2]) {
-            res.render('workout', { wrestler: wrestler, workout: workout, sets: data[2] });
-        } else {
-            res.render('workout', { wrestler: Wrestler, workout: Workout, sets: [] });
         }
     }).catch((error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query }));
 })
