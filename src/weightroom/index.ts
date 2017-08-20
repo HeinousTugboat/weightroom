@@ -1,4 +1,4 @@
-import { ExerciseSet, Workout } from '../models/workout';
+import { Exercise, ExerciseBlock, ExerciseSet, Workout } from '../models/workout';
 import * as express from 'express';
 import * as pgPromise from 'pg-promise';
 
@@ -58,20 +58,29 @@ router.get('/wrestlers/:wrestler_id/workouts/:workout_id', (req, res, next) => {
         if (data[1]) {
             workout = Workout.fromJSON(wrestler, data[1]);
             if (data[2]) {
-                workout.sets = data[2].reduce((acc, val) => {
+                let reduction = data[2].reduce((acc, val) => {
                     let set = ExerciseSet.fromJSON(workout, val);
-                    set.setNumber = acc.num;
+                    if (set.setNumber < acc.num) {
+                        set.setNumber = acc.num;
+                    }
                     acc.sets.push(set);
                     acc.num++;
+                    let currSet = acc.exercises[acc.exercises.length-1];
+                    if ((set.exercise && currSet.exercise && set.exercise.name === currSet.exercise.name) || (set.exercise == currSet.exercise)) {
+                        currSet.sets.push(set);
+                    } else {
+                        acc.exercises.push({exercise:set.exercise, sets: [set]});
+                    }
                     return acc;
-                }, {sets: <ExerciseSet[]>[], num: 1}).sets;
-                // workout.sets = data[2].map((json: exerciseSetJSON) => ExerciseSet.fromJSON(workout, json));
+                }, {sets: <ExerciseSet[]>[], exercises: <ExerciseBlock[]>[{exercise: undefined, sets: []}], num: 1});
+                workout.sets = reduction.sets;
+                workout.exercises = reduction.exercises.filter(val=>val.sets.length);
             }
             res.render('workout', { wrestler: wrestler, workout: workout });
         } else {
             res.status(404).send('Workout Not Found..');
         }
-    }).catch((error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query }));
+    }).catch((error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query, message: 'Some sort of Error in weightroom/workout/workout_id..'}));
 })
 
 export default router;

@@ -1,4 +1,25 @@
 .exercise-set-detail
     ul
-    each set in workout.sets
-        li= `#${set.setNumber}: ${set.reps}x ${set.weight} ${set.exercise.name}`
+        if workout.exercises.length
+            each exerciseSet in workout.exercises
+                li= exerciseSet.exercise.name
+                ul
+                    each set in exerciseSet.sets
+                        li.exercise-set(data-set-number=set.setNumber data-set-id=set.id)
+                            span.number= `${set.setNumber}`
+                            span.reps
+                                input(type='number' value=`${+set.reps}`)
+                            span(class='weight-unit-'+set.weightUnit).weight
+                                input(type='number' value=`${+set.weight}` data-weight-unit=`${set.weightUnit}`)
+                            input.notes(type=-'text')
+        else
+            each set in workout.sets
+                li.exercise-set
+                    span.number= `${set.setNumber}`
+                    span.reps
+                        input(type='number' value=`${+set.reps}`)
+                    span(class='weight-unit-'+set.weightUnit).weight
+                        input(type='number' value=`${+set.weight}` data-weight-unit=`${set.weightUnit}`)
+                    input.exercise(type='select' value=`${set.exercise.name}`)
+                    input.notes(type=-'text')
+                //- li= JSON.stringify(set, null, 2)

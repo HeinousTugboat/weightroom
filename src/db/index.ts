@@ -1,3 +1,4 @@
+import { weightUnit } from '../models/json-interfaces';
 import ExerciseSetsRepo from './repos/exercise-sets';
 import * as express from 'express';
 import { ColumnSet, IDatabase, IOptions } from 'pg-promise';
@@ -51,10 +52,11 @@ const initOptions: IOptions<IExtensions> = {
             exercise_set: new pgp.helpers.ColumnSet([
                 'exercise_id',
                 'workout_id',
-                'exercise_reps',
-                'exercise_weight',
+                { name: 'exercise_reps', def: 0 },
+                { name: 'exercise_weight', def: 0 },
                 { name: 'routine_set_id', def: null },
-                { name: 'exercise_weight_unit', def: 1 }
+                { name: 'set_number', def: -1 },
+                { name: 'exercise_weight_unit', def: weightUnit.IMPERIAL }
             ], { table: 'exercise_sets' }),
             exercise: new pgp.helpers.ColumnSet([
                 'exercise_name'

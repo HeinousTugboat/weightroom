@@ -30,8 +30,8 @@ export class ExerciseSet {
     exercise: Exercise | undefined;
     reps: number = 0;
     weight: number = 0;
-    weightUnit: weightUnit;
-    setNumber: number = 1;
+    weightUnit: weightUnit = weightUnit.IMPERIAL;
+    setNumber: number = -1;
     dirty: boolean = true;
     constructor(public workout: Workout, public id: number = -1) { }
 
@@ -42,7 +42,8 @@ export class ExerciseSet {
             workout_id: this.workout,
             exercise_reps: this.reps,
             exercise_weight: this.weight,
-            exercise_weight_unit: this.weightUnit
+            exercise_weight_unit: this.weightUnit,
+            set_number: this.setNumber
         }
     }
 
@@ -53,6 +54,7 @@ export class ExerciseSet {
         let set = new ExerciseSet(workout, json.exercise_set_id);
         set.reps = json.exercise_reps;
         set.weight = json.exercise_weight;
+        set.setNumber = json.set_number;
         json.exercise_weight_unit && (set.weightUnit = json.exercise_weight_unit);
         json.exercise_id && json.exercise_name && (set.exercise = new Exercise(json.exercise_name, json.exercise_id));
 
@@ -61,12 +63,18 @@ export class ExerciseSet {
 
 }
 
+export interface ExerciseBlock {
+    exercise: Exercise | undefined;
+    sets: ExerciseSet[];
+}
+
 export class Workout {
     date: Date;
     sets: ExerciseSet[] = [];
     dirty: boolean = true;
     label: string;
     duration: Date;
+    public exercises: ExerciseBlock[];
     constructor(public wrestler: Wrestler, public id: number = -1) { }
 
     toJSON(): workoutJSON {

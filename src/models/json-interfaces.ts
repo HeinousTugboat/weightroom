@@ -49,10 +49,11 @@ export interface workoutJSON {
 export interface exerciseSetJSON {
     exercise_set_id: number;
     exercise_id: number;
-    exercise_name?: string;
+    exercise_name: string;
     workout_id: number;
+    set_number: number;
     routine_set_id?: number | null;
     exercise_reps: number;
     exercise_weight: number;
-    exercise_weight_unit?: weightUnit | null;
+    exercise_weight_unit: weightUnit;
 }

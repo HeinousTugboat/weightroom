@@ -18,7 +18,7 @@ export default class ExerciseSetsRepo {
     }
     // remove() { }
     find(workoutId: number): Promise<exerciseSetJSON[]> {
-        return this.db.any('SELECT * FROM exercise_sets NATURAL JOIN exercises WHERE workout_id = $1 ORDER BY exercise_set_id ASC', workoutId);
+        return this.db.any('SELECT * FROM exercise_sets NATURAL JOIN exercises WHERE workout_id = $1 ORDER BY set_number ASC, exercise_set_id ASC', workoutId);
     }
     update(id: number, set: ExerciseSet): Promise<exerciseSetJSON> {
         return this.db.oneOrNone(pgp.helpers.update(set, this.db.cols.exercise_sets) + ' WHERE exercise_set_id = $1 RETURNING *', id);
