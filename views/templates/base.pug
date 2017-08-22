@@ -12,7 +12,7 @@ html.no-js(lang='en')
         link(rel='stylesheet' href='//brick.a.ssl.fastly.net/Bitter:400/PT+Sans:400')
         // link(rel='stylesheet' href='//brick.a.ssl.fastly.net/Raleway:400')
         title= title || 'Weightroom'
-    body.l-flex-page
+    body.l-flex-page(data-view=view || 'default')
         header
             h1= header || '..Weightroom..'
             div.login
@@ -35,4 +35,5 @@ html.no-js(lang='en')
                   format: 'register',
                   defaultExtension: '.js'
             })
-            SystemJS.import('/js/app.js').then(()=>System.import('browser/app'));
+            SystemJS.import('/js/app.js').then(()=>System.import('app'));
+

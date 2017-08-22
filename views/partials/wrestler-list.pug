@@ -9,7 +9,7 @@ div.wrestler-list
             th Delete
         each wrestler in wrestlers
             tr
-                td.view: a(href='./wrestlers/'+wrestler.id) View
+                td.view: a(href='/wr/wrestlers/'+wrestler.id) View
                 td.name= wrestler.name
                 td.id= wrestler.id
                 td.workouts= (wrestler.workouts && wrestler.workouts.length) || 0

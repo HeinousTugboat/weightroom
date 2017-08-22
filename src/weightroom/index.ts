@@ -24,7 +24,7 @@ router.get('/wrestlers', (req, res, next) => {
     let wrestlers: wrestlerJSON[];
     db.wrestlers.all()
         .then(data => Promise.resolve(data.map(x => Wrestler.fromJSON(x))))
-        .then(wrestlers => res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: wrestlers }));
+        .then(wrestlers => res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: wrestlers, view: 'wrestler-list' }));
 })
 router.get('/wrestlers/add', (req, res, next) => {
     res.redirect('../wrestlers');
@@ -42,7 +42,7 @@ router.get('/wrestlers/:wrestler_id', (req, res, next) => {
                 return acc;
             }
         }, (<Wrestler>{}))))
-        .then(wrestler => res.render('wrestler-profile', wrestler))
+        .then(wrestler => res.render('wrestler-profile', {...wrestler, view: 'wrestler-profile'}))
 })
 router.get('/wrestlers/:wrestler_id/workouts', (req, res, next) => {
     res.redirect(req.baseUrl + '/wrestlers/' + req.params.wrestler_id);
@@ -76,7 +76,7 @@ router.get('/wrestlers/:wrestler_id/workouts/:workout_id', (req, res, next) => {
                 workout.sets = reduction.sets;
                 workout.exercises = reduction.exercises.filter(val=>val.sets.length);
             }
-            res.render('workout', { wrestler: wrestler, workout: workout });
+            res.render('workout', { wrestler: wrestler, workout: workout, view: 'workout-detail' });
         } else {
             res.status(404).send('Workout Not Found..');
         }
