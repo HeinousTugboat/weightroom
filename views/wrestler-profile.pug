@@ -9,9 +9,11 @@ block content
             p= `Weight: ${weight}`
         if (workouts.length)
             p= `Workouts: ${workouts.length}`
-        //- p= JSON.stringify(workouts)
-        ul
-            each workout in workouts
-                //- li= JSON.stringify(workout)
-                li= `${workout.id} [${workout.date.toLocaleString()}]`
+            ul
+                each workout in workouts
+                    //- li= JSON.stringify(workout)
+                    li: a(href=id+'/workouts/'+workout.id)= `#${workout.id} - [${workout.date.toLocaleString()}]`
+        else
+            p No workouts found..
+            button(href='#') Add New Workout
 
