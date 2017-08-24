@@ -4,6 +4,9 @@ import * as url from 'url';
 
 import db from '../db';
 
+const debug = require('debug');
+const log = debug('cumulus:api:wrestlers');
+
 const sendRes = (res: express.Response) => (data: any) => res.send(data);
 const errorRes = (res: express.Response) => (error: pgPromise.errors.QueryResultError) => res.status(404).send({ error: error.name, query: error.query });
 const insertRes = (req: express.Request, res: express.Response, id: string) => (data: any) => res.status(201).location('' + req.get('origin') + url.parse(req.url).pathname + '/' + data[id]).send(data)
@@ -22,9 +25,11 @@ const getWrestlerByName = (req: express.Request, res: express.Response) =>
         .then(sendRes(res)).catch(errorRes(res));
 const updateWrestler = (req: express.Request, res: express.Response) =>
     db.wrestlers.update(req.params.wrestler_id, req.body).then(sendRes(res)).catch(errorRes(res));
-const getAllWrestlers = (req: express.Request, res: express.Response) =>
-    db.wrestlers.all().then(sendRes(res)).catch(errorRes(res));
-
+const getAllWrestlers = (req: express.Request, res: express.Response) => {
+    db.wrestlers.count().then(({count}) => res.set('X-Total-Count', ''+count))
+    .then(() => db.wrestlers.all(req.query.offset, req.query.limit))
+    .then(sendRes(res)).catch(errorRes(res));
+}
 const insertWorkout = (req: express.Request, res: express.Response) =>
     db.workouts.add(req.body).then(insertRes(req, res, 'workout_id')).catch(errorRes(res));
 const getWorkouts = (req: express.Request, res: express.Response) =>

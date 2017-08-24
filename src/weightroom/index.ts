@@ -25,10 +25,10 @@ router.get('/rando', (req, res, next) => {
 })
 
 router.get('/wrestlers', (req, res, next) => {
-    let wrestlers: wrestlerJSON[];
-    db.wrestlers.all()
-        .then(data => Promise.resolve(data.map(x => Wrestler.fromJSON(x))))
-        .then(wrestlers => res.render('wrestlers', { title: 'Wrestler', header: 'Wrestler List', wrestlers: wrestlers, view: 'wrestler-list' }));
+    db.wrestlers.count().then(({count}) => res.set('X-Total-Count', ''+count))
+    .then(() => db.wrestlers.all(req.query.offset, req.query.limit))
+    .then(data => Promise.resolve(data.map(x => Wrestler.fromJSON(x))))
+    .then(wrestlers => res.render('wrestlers', { wrestlers, view: 'wrestler-list' }));
 })
 router.get('/wrestlers/add', (req, res, next) => {
     res.redirect('../wrestlers');

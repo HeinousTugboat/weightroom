@@ -17,23 +17,26 @@ export default class WrestlersRepository {
         return this.db.one(pgp.helpers.insert(wrestler, this.db.cols.wrestler) + ` RETURNING *`, wrestler);
     }
     // remove() { }
+    count(): Promise<{count: number}> {
+        return this.db.one('SELECT COUNT(*) FROM wrestlers');
+    }
     findById(id: number): Promise<wrestlerJSON> {
         return this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id);
     }
     findByIdFull(id: number): Promise<(wrestlerJSON | workoutJSON[])[]> {
         return Promise.all([
             this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id),
-            this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1', id)
+            this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1 ORDER BY workout_date DESC, workout_id DESC', id)
         ]);
     }
     findByName(name: string): Promise<wrestlerJSON> {
-        return this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_name = $1', name);
+        return this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_name = $1 LIMIT 30', name);
     }
     update(id: number, wrestler: Wrestler): Promise<wrestlerJSON> {
         return this.db.oneOrNone(pgp.helpers.update(wrestler, this.db.cols.wrestler) + ' WHERE wrestler_id = $1 RETURNING *', id);
     }
-    all(): Promise<wrestlerJSON[]> {
-        return this.db.any('SELECT * FROM wrestlers');
+    all(offset: number = 0, limit: number = 10): Promise<wrestlerJSON[]> {
+        return this.db.any('SELECT * FROM wrestlers ORDER BY wrestler_id ASC LIMIT $1 OFFSET $2', [limit, offset]);
     }
     // total() { }
 

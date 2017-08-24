@@ -18,7 +18,7 @@ export default class WorkoutsRepository {
     }
     // remove() { }
     find(id: number): Promise<workoutJSON[]> {
-        return this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1', id);
+        return this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1 ORDER BY workout_date DESC, workout_id DESC', id);
     }
     findByWrestler(workoutId: number, wrestlerId: number): Promise<workoutJSON> {
         return this.db.one('SELECT * FROM workouts WHERE workout_id = $1 AND wrestler_id = $2', [workoutId, wrestlerId]);
