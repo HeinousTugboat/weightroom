@@ -20,6 +20,10 @@ router.get('/', (req, res, next) => {
     res.render('index');
 })
 
+router.get('/rando', (req, res, next) => {
+    res.render('rando-wrestler');
+})
+
 router.get('/wrestlers', (req, res, next) => {
     let wrestlers: wrestlerJSON[];
     db.wrestlers.all()
