@@ -17,6 +17,9 @@ export default class WorkoutsRepository {
         return this.db.one(pgp.helpers.insert(workout, this.db.cols.workout) + ` RETURNING *`, workout);
     }
     // remove() { }
+
+    // TODO: Add pagination..
+    // TODO: Possibly refactor name..
     find(id: number): Promise<workoutJSON[]> {
         return this.db.any('SELECT * FROM workouts WHERE wrestler_id = $1 ORDER BY workout_date DESC, workout_id DESC', id);
     }

@@ -23,6 +23,7 @@ export default class ExercisesRepository {
     update(id: number, exercise: Exercise): Promise<exerciseJSON> {
         return this.db.oneOrNone(pgp.helpers.update(exercise, this.db.cols.exercise) + ' WHERE exercise_id = $1 RETURNING *', id);
     }
+    // TODO: Add Pagination
     all(): Promise<exerciseJSON[]> {
         return this.db.any('SELECT * FROM exercises');
     }

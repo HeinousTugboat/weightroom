@@ -23,6 +23,7 @@ export default class WrestlersRepository {
     findById(id: number): Promise<wrestlerJSON> {
         return this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id);
     }
+    // TODO: Add pagination to findByIdFull for Workouts.
     findByIdFull(id: number): Promise<(wrestlerJSON | workoutJSON[])[]> {
         return Promise.all([
             this.db.oneOrNone('SELECT * FROM wrestlers WHERE wrestler_id = $1', id),

@@ -1,0 +1,23 @@
+API:
+    ☐ Add pagination to api/exercises
+    ☐ Add pagination to api/wrestler/:id/workouts
+    ☐ Add pagination to api/wrestler/:id/full (Pass-through to /workouts pagination?)
+DB:
+    ☐ Add pagination to db.exercises.all
+    ☐ Add pagination to db.workouts.find
+    ☐ Add pagination to db.wrestlers.findByIdFull
+    ☐ Refactor db.workouts.find and db.workouts.findByWrestler to have better names
+Front-end:
+    WrestlerListView:
+        ☐ Add wrestler
+        ☐ Delete wrestler
+        ☐ Add pagination to workout list
+    WrestlerProfileView:
+        ☐ Delete wrestler
+        ☐ Edit wrestler
+        ☐ Add new workout
+    WorkoutDetailView:
+        ☐ Save workout
+        ☐ Edit workout/exercise sets
+        ☐ Add new exercise set
+        ☐ Delete exercise set
