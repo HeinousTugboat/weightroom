@@ -5,9 +5,33 @@
   "main": "src/index",
   "types": "src/index",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha",
+    "test:vsc": "nyc mocha -R tap test/**/*.ts || @echo off",
     "start": "npm run build:live",
     "build:live": "nodemon --exec ts-node -- ./src/index.ts"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      "tsx"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeinousTugboat/weightroom.git"
   },
   "author": "",
   "license": "ISC",
@@ -28,5 +52,16 @@
     "systemjs": "^0.20.18",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.2",
+    "istanbul": "^0.4.5",
+    "karma": "^1.7.1",
+    "mocha": "^3.5.0",
+    "nyc": "^11.1.0",
+    "sinon": "^3.2.1",
+    "source-map-support": "^0.4.16"
   }
 }
