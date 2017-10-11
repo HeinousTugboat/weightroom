@@ -32,3 +32,5 @@ lib/
 public/js/
 
 \.nyc_output/
+
+coverage/
